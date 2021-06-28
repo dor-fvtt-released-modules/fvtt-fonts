@@ -1,3 +1,13 @@
 {
-    "MODULE.hello": "hello"
+    "font-foundry.testSetting.title":  "Test Setting",
+    "font-foundry.testSetting.hint":   "This is a test setting to validate my understanding.",
+    "font-foundry.testSetting.toggled":   "Custom Fonts | Test setting toggled.",
+
+    "font-foundry.tempFontSetting.title":  "Custom Fonts",
+    "font-foundry.tempFontSetting.hint":   "Add desired font families as comma-separated values.",
+    "font-foundry.tempFontSetting.changed":   "Custom Fonts | Custom font list was edited.",
+
+    "font-foundry.testPolyglotSetting.title":  "Test Polyglot Setting",
+    "font-foundry.testPolyglotSetting.hint":   "This is a test setting for eventual Polyglot integration.",
+    "font-foundry.testPolyglotSetting.toggled": "Custom Fonts | Test Polyglot setting toggled."
 }
