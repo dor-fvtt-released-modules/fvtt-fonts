@@ -7,7 +7,9 @@
     "font-foundry.tempFontSetting.hint":   "Add desired font families as comma-separated values.",
     "font-foundry.tempFontSetting.changed":   "Custom Fonts | Custom font list was edited.",
 
-    "font-foundry.testPolyglotSetting.title":  "Test Polyglot Setting",
-    "font-foundry.testPolyglotSetting.hint":   "This is a test setting for eventual Polyglot integration.",
-    "font-foundry.testPolyglotSetting.toggled": "Custom Fonts | Test Polyglot setting toggled."
+    "font-foundry.addFont.title":   " ",
+    "font-foundry.addFont.label":   "🖋️ Add Fonts",
+
+    "font-foundry.addFontForm.title":   "Font Foundry | Add Fonts"
+
 }
