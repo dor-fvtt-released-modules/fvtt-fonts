@@ -1,15 +1,40 @@
 {
-    "font-foundry.testSetting.title":  "Test Setting",
-    "font-foundry.testSetting.hint":   "This is a test setting to validate my understanding.",
-    "font-foundry.testSetting.toggled":   "Custom Fonts | Test setting toggled.",
-
-    "font-foundry.tempFontSetting.title":  "Custom Fonts",
-    "font-foundry.tempFontSetting.hint":   "Add desired font families as comma-separated values.",
-    "font-foundry.tempFontSetting.changed":   "Custom Fonts | Custom font list was edited.",
-
-    "font-foundry.addFont.title":   " ",
-    "font-foundry.addFont.label":   "🖋️ Add Fonts",
-
-    "font-foundry.addFontForm.title":   "Font Foundry | Add Fonts"
-
+    "font-furnace": {
+        "settings": {
+            "addFontMenuButton": {
+                "label": "🖋️ Add Font"
+            },
+            "manageFontsMenuButton": {
+                "label": "📜 Manage Fonts"
+            },
+            "categorySortSetting": {
+                "title": "Sort Fonts by Category",
+                "hint": "By default, all fonts are sorted alphabetically. Enable this setting to sort by category instead, with default Foundry fonts first."
+            },
+            "addFontMenu": {
+                "frameTitle": "🔥 Font Furnace | Add Font",
+                "title": "Add a Font",
+                "hint": "Add a font from the Google Fonts API to Foundry. Browse available font families on ",
+                "link": "the Google Fonts site.",
+                "inputHint": "Enter the exact name of a single font, then press Add Font.",
+                "saveButtonTitle": "Add Font"
+            },
+            "manageFontsMenu": {
+                "frameTitle": "\uD83D\uDD25 Font Furnace | \uD83D\uDCDC Font Management",
+                "title": "Font Management",
+                "hint": "From here, installed fonts can be previewed and GM-added fonts can be removed.",
+                "sourceColumnName": "Source",
+                "fontFamilyColumnName": "Font",
+                "previewColumnName": "Preview",
+                "previewAlphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            }
+        },
+        "userAlerts": {
+            "addFontSave": {
+                "empty": "No font submitted, no change made.",
+                "invalid": "{newFont} was not found on Google Fonts.",
+                "added": "{newFont} added to Foundry."
+            }
+        }
+    }
 }

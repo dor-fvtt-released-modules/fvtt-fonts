@@ -10,3 +10,8 @@ Hooks.once('init', () => {
 Hooks.once('devModeReady', ({ registerPackageDebugFlag }) => {
     registerPackageDebugFlag(`${constants.moduleName}`);
   });
+
+Hooks.on('renderFontFurnaceAddFont', () => {
+    let fontInput = document.getElementById('addFontName');
+    fontInput.focus();
+})

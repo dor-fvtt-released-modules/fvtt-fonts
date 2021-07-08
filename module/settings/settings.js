@@ -1,44 +1,37 @@
 import constants from '../constants.js';
-import {FontFoundryAddFont} from "./font-foundry-add-font.js";
+import {FontFurnaceAddFont} from "./add-font.js";
+import {FontFurnaceManageFonts} from "./manage-fonts.js";
 
 // Register default settings
 export default function registerSettings() {
 
   game.settings.registerMenu(constants.moduleName, 'addFont', {
-		name:   game.i18n.localize(`${constants.moduleName}.addFont.title`),
-    label:  game.i18n.localize(`${constants.moduleName}.addFont.label`),
-		// icon: 'fas fa-globe',
-		type: FontFoundryAddFont,
-		restricted: true
+    label:  loc('settings','addFontMenuButton','label'),
+    type: FontFurnaceAddFont,
+    restricted: true
 	}),
 
-  // game.settings.registerMenu(constants.moduleName, 'listFonts', {
-	// 	name: game.i18n.localize(`${constants.moduleName}.listFonts.title`),
-	// 	hint: game.i18n.localize(`${constants.moduleName}.listFonts.hint`),
-  //   label: game.i18n.localize(`${constants.moduleName}.listFonts.label`),
-	// 	icon: 'fas fa-globe',
-	// 	type: FontFoundryListFonts,
-	// 	restricted: true
-	// }),
+  game.settings.registerMenu(constants.moduleName, 'manageFonts', {
+      label:  loc('settings','manageFontsMenuButton','label'),
+      type: FontFurnaceManageFonts,
+    restricted: true
+	}),
   
-  game.settings.register(constants.moduleName, 'tempFontSetting', {
-    name: game.i18n.localize(`${constants.moduleName}.tempFontSetting.title`),
-    hint: game.i18n.localize(`${constants.moduleName}.tempFontSetting.hint`),
+  game.settings.register(constants.moduleName, 'fonts', {
     scope: 'world',
-    config: true,
-    default: constants.moduleDefaultFonts,
-    type: String,
-    onChange: () => FontFoundry.render({settings: true})
+    config: false,
+    default: constants.fontFurnaceDefaultFonts,
+    type: String
+    //onChange: () => FontFurnace.render({settings: true})
   }),
-  
-  game.settings.register(constants.moduleName, 'testSetting', {
-    name: game.i18n.localize(`${constants.moduleName}.testSetting.title`),
-    hint: game.i18n.localize(`${constants.moduleName}.testSetting.hint`),
-    scope: 'world',
-    config: true,
-    default: false,
-    type: Boolean,
-    onChange: () => console.log(game.i18n.localize(`${constants.moduleName}.testPolyglotSetting.toggled`))
-  });
+
+    game.settings.register(constants.moduleName, 'categorySort', {
+        name: loc('settings','categorySortSetting','title'),
+        hint: loc('settings','categorySortSetting','hint'),
+        scope: 'world',
+        config: true,
+        default: false,
+        type: Boolean
+    });
 
 }

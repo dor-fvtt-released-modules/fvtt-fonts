@@ -1,0 +1,29 @@
+<form autocomplete="off" style="padding: 0 2.5%" onsubmit="event.preventDefault()" style="display: flex;flex-direction: column;">
+    <div>
+        <label>{{localize "font-furnace.settings.manageFontsMenu.title"}}</label>
+        <p class="notes">{{localize "font-furnace.settings.manageFontsMenu.hint"}}</p>
+        <ul style="list-style: none;">
+            <li style="display: flex;">
+                <div style="flex: 0 0 60px;">{{localize "font-furnace.settings.manageFontsMenu.sourceColumnName"}}</div>
+                <div style="flex: 0 0 175px;">{{localize "font-furnace.settings.manageFontsMenu.fontFamilyColumnName"}}</div>
+                <div style="flex: 2;">{{localize "font-furnace.settings.manageFontsMenu.previewColumnName"}}</div>
+            </li>
+            <hr>
+            {{#each fontFamilies as |val|}}
+                <li style="display: flex;">
+                    <div style="flex: 0 0 60px; text-transform: capitalize;">{{"Unk"}}</div>
+                    <div style="flex: 0 0 175px; text-transform: capitalize;">{{val}}</div>
+                    <div style="flex: 2; font: 100% {{val}};">{{localize "font-furnace.settings.manageFontsMenu.previewAlphabet"}}</div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    <footer class="sheet-footer flexrow" style="margin-top: auto">
+        <button type="submit" name="submit">
+            <i class="far fa-save"></i> {{localize 'SETTINGS.Save'}}
+        </button>
+        <button type="button" data-action="reset">
+            <i class="fas fa-undo"></i> {{localize 'SETTINGS.Reset'}}
+        </button>
+    </footer>
+</form>
