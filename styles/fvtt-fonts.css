@@ -1,0 +1,196 @@
+/*FVTT Fonts Default Fonts*/
+
+@font-face {
+    font-family: 'Grenze Gotisch';
+    src: url('../fonts/GrenzeGotisch-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Hobbiton Brushhand';
+    src: url('../fonts/HobbitonBrushhandhobbitonBrush-WygA.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Indie Flower';
+    src: url('../fonts/IndieFlower-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Just Me Again Down Here';
+    src: url('../fonts/JustMeAgainDownHere-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Kaushan Script';
+    src: url('../fonts/KaushanScript-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Ma Shan Zheng';
+    src: url('../fonts/MaShanZheng-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Macondo';
+    src: url('../fonts/Macondo-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Miss Fajardose';
+    src: url('../fonts/MissFajardose-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('../fonts/Orbitron-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('../fonts/PressStart2P-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Princess Sofia';
+    src: url('../fonts/PrincessSofia-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Trade Winds';
+    src: url('../fonts/TradeWinds-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Unifraktur Cook';
+    src: url('../fonts/UnifrakturCook-Bold.ttf') format('truetype');
+}
+
+
+/*Dungeondraft Default Fonts*/
+
+@font-face {
+    font-family: 'Advent Pro';
+    src: url('../fonts/AdventPro-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Advent Pro Bold';
+    src: url('../fonts/AdventPro-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Aladin';
+    src: url('../fonts/Aladin-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Amati SC';
+    src: url('../fonts/AmaticSC-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Amati SC Bold';
+    src: url('../fonts/AmaticSC-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Bree Serif';
+    src: url('../fonts/BreeSerif-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Caveat';
+    src: url('../fonts/Caveat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Economica';
+    src: url('../fonts/Economica-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Economica Bold';
+    src: url('../fonts/Economica-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Fredericka the Great';
+    src: url('../fonts/FrederickatheGreat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Gentium Book Basic';
+    src: url('../fonts/GentiumBookBasic-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Gentium Book Basic Bold';
+    src: url('../fonts/GentiumBookBasic-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Gentium Book Basic Italic';
+    src: url('../fonts/GentiumBookBasic-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'IM FELL English';
+    src: url('../fonts/IMFellEnglish-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'IM FELL English Italic';
+    src: url('../fonts/IMFellEnglish-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Just Another Hand';
+    src: url('../fonts/JustAnotherHand-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Libre Baskerville';
+    src: url('../fonts/LibreBaskerville-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Libre Baskerville Bold';
+    src: url('../fonts/LibreBaskerville-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Marck Script';
+    src: url('../fonts/MarckScript-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Medieval Sharp';
+    src: url('../fonts/MedievalSharp-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Nixie One';
+    src: url('../fonts/NixieOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poiret One';
+    src: url('../fonts/PoiretOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Satisfy';
+    src: url('../fonts/Satisfy-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Tangerine';
+    src: url('../fonts/Tangerine-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Unifraktur Maguntia';
+    src: url('../fonts/UnifrakturMaguntia-Regular.ttf') format('truetype');
+}
+
+

@@ -23,6 +23,9 @@
   "esmodules": [
     "/module/init.js"
   ],
+  "styles": [
+    "/styles/fvtt-fonts.css"
+  ],
   "languages": [
     {
       "lang": "en",

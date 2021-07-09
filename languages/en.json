@@ -1,44 +1,61 @@
 {
-    "fvtt-fonts": {
-        "settings": {
-            "addFontMenuButton": {
-                "label": "\uD83D\uDD8B Add Font"
-            },
-            "manageFontsMenuButton": {
-                "label": "\uD83D\uDCDC View & Manage Fonts"
-            },
-            "categorySortSetting": {
-                "title": "Sort Fonts by Category",
-                "hint": "By default, all fonts are sorted alphabetically. Enable this setting to sort by category instead, with default Foundry fonts first."
-            },
-            "addFontMenu": {
-                "frameTitle": "\uD83D\uDD8B Add Font",
-                "title": "Add a Font",
-                "hint": "Add a font from the Google Fonts API to Foundry. Browse available font families on ",
-                "googleFontsLink": "the Google Fonts site.",
-                "inputHint": "Enter the exact name of a single font, then press Add Font.",
-                "saveButtonTitle": "Add Font"
-            },
-            "manageFontsMenu": {
-                "frameTitle": "\uD83D\uDCDC View & Manage Fonts",
-                "title": "View & Manage Fonts",
-                "hint": "From here, installed fonts can be previewed and GM-added fonts can be removed.",
-                "sourceColumnName": "Source",
-                "fontFamilyColumnName": "Font",
-                "previewColumnName": "Preview",
-                "previewAlphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-                "foundryDefaultIconHover": "FoundryVTT Default Font",
-                "gmIconHover": "{title} - Added by GM",
-                "dungeondraftIconHover": "Dungeondraft Default Font",
-                "unknownIconHover": "Honestly, no idea how this got here."
-            }
-        },
-        "userAlerts": {
-            "addFontSave": {
-                "empty": "No font submitted, no change made.",
-                "invalid": "{newFont} was not found on Google Fonts.",
-                "added": "{newFont} added to Foundry."
-            }
+  "fvtt-fonts": {
+    "settings": {
+      "addFontMenuButton": {
+        "label": "\uD83D\uDD8B Add Font"
+      },
+      "manageFontsMenuButton": {
+        "label": "\uD83D\uDCDC View & Manage Fonts"
+      },
+      "categorySortSetting": {
+        "title": "Sort Fonts by Category",
+        "hint": "By default, all fonts are sorted alphabetically in UI dropdowns. Enable this setting to sort by category instead, with default Foundry fonts first."
+      },
+      "dungeondraftFontsVisibleSetting": {
+        "title": "Add Dungeondraft fonts to the Font Manager?",
+        "hint": "Dungeondraft, the mapping tool by Megasploot, comes with 25 default fonts. By enabling this setting and then selecting the specific fonts you want in the Font Manager, your drawing and map notes in FoundryVTT can match the labels on your Dungeondraft maps."
+      },
+      "addFontMenu": {
+        "frameTitle": "\uD83D\uDD8B Add Font",
+        "title": "Add a Font",
+        "hint": "Add a font from the Google Fonts API to Foundry. Browse available font families on ",
+        "googleFontsLink": "the Google Fonts site.",
+        "inputHint": "Enter the exact name of a single font, then press Add Font.",
+        "saveButtonTitle": "Add Font"
+      },
+      "manageFontsMenu": {
+        "frameTitle": "\uD83D\uDCDC View & Manage Fonts",
+        "title": "View & Manage Fonts",
+        "hint": "From here, installed fonts can be previewed and GM-added fonts can be removed.",
+        "sourceColumnName": "Source",
+        "fontFamilyColumnName": "Font",
+        "previewColumnName": "Preview",
+        "previewAlphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "foundryDefaultIconHover": "FoundryVTT Default Font",
+        "fvttFontsDefaultIconHover": "{title} - Default Font",
+        "gmIconHover": "{title} - Added by GM",
+        "dungeondraftIconHover": "Dungeondraft Default Font",
+        "unknownIconHover": "Honestly, no idea how this got here.",
+        "panagrams": {
+          "panagram-1": "The quick brown fox jumps over the lazy dog.",
+          "panagram-2": "Amazingly few discotheques provide jukeboxes.",
+          "panagram-3": "Glib jocks quiz nymph to vex dwarf.",
+          "panagram-4": "Sphinx of black quartz, judge my vow.",
+          "panagram-5": "Pack my box with five dozen liquor jugs.",
+          "panagram-6": "The five boxing wizards jump quickly.",
+          "panagram-7": "Jackdaws love my big sphinx of quartz.",
+          "panagram-8": "Quick zephyrs blow, vexing daft Jim.",
+          "panagram-9": "A wizard's job is to vex chumps quickly in fog.",
+          "panagram-10": "By Jove, my quick study of lexicography won a prize!"
         }
+      }
+    },
+    "userAlerts": {
+      "addFontSave": {
+        "empty": "No font submitted, no change made.",
+        "invalid": "{newFont} was not found on Google Fonts.",
+        "added": "{newFont} added to Foundry."
+      }
     }
+  }
 }

@@ -1,4 +1,5 @@
-<form autocomplete="off" style="padding: 0 2.5%" onsubmit="event.preventDefault()" style="display: flex;flex-direction: column;">
+<form autocomplete="off" style="padding: 0 2.5%; display: flex;flex-direction: column;"
+      onsubmit="event.preventDefault()">
     <div>
         <label>{{localize (concat locPrefix "title")}}</label>
         <p class="notes">{{localize (concat locPrefix "hint")}}</p>
@@ -11,19 +12,19 @@
             <hr>
             {{#each fontFamilies as |family|}}
                 <li style="display: flex;">
-                    <div style="flex: 0 0 50px;"><img id={{family.sourceIconId}} style="border-width:0px;" src={{family.sourceIconPath}} height="20px" title="{{family.sourceIconHoverText}}"/></div>
+                    <div style="flex: 0 0 50px;"><img id={{family.sourceIconId}} style="border-width:0;"
+                                                      src={{family.sourceIconPath}} height="20px"
+                                                      title="{{family.sourceIconHoverText}}"/></div>
                     <div style="flex: 0 0 175px; text-transform: capitalize;">{{family.name}}</div>
-                    <div style="flex: 2; font: 100% {{family.name}};">{{@root.previewAlphabet}}</div>
+                    <div style="flex: 2; font: 120% {{family.name}};">{{@root.previewAlphabet}}</div>
                 </li>
+                <hr style="width:60%">
             {{/each}}
         </ul>
     </div>
     <footer class="sheet-footer flexrow" style="margin-top: auto">
         <button type="submit" name="submit">
             <i class="far fa-save"></i> {{localize 'SETTINGS.Save'}}
-        </button>
-        <button type="button" data-action="reset">
-            <i class="fas fa-undo"></i> {{localize 'SETTINGS.Reset'}}
         </button>
     </footer>
 </form>
