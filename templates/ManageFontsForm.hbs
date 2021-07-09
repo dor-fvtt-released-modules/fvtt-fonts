@@ -1,19 +1,19 @@
 <form autocomplete="off" style="padding: 0 2.5%" onsubmit="event.preventDefault()" style="display: flex;flex-direction: column;">
     <div>
-        <label>{{localize "font-furnace.settings.manageFontsMenu.title"}}</label>
-        <p class="notes">{{localize "font-furnace.settings.manageFontsMenu.hint"}}</p>
+        <label>{{localize (concat locPrefix "title")}}</label>
+        <p class="notes">{{localize (concat locPrefix "hint")}}</p>
         <ul style="list-style: none;">
             <li style="display: flex;">
-                <div style="flex: 0 0 60px;">{{localize "font-furnace.settings.manageFontsMenu.sourceColumnName"}}</div>
-                <div style="flex: 0 0 175px;">{{localize "font-furnace.settings.manageFontsMenu.fontFamilyColumnName"}}</div>
-                <div style="flex: 2;">{{localize "font-furnace.settings.manageFontsMenu.previewColumnName"}}</div>
+                <div style="flex: 0 0 60px;">{{localize (concat locPrefix "sourceColumnName")}}</div>
+                <div style="flex: 0 0 175px;">{{localize (concat locPrefix "fontFamilyColumnName")}}</div>
+                <div style="flex: 2;">{{localize (concat locPrefix "previewColumnName")}}</div>
             </li>
             <hr>
-            {{#each fontFamilies as |val|}}
+            {{#each fontFamilies as |family|}}
                 <li style="display: flex;">
-                    <div style="flex: 0 0 60px; text-transform: capitalize;">{{"Unk"}}</div>
-                    <div style="flex: 0 0 175px; text-transform: capitalize;">{{val}}</div>
-                    <div style="flex: 2; font: 100% {{val}};">{{localize "font-furnace.settings.manageFontsMenu.previewAlphabet"}}</div>
+                    <div style="flex: 0 0 50px;"><img id={{family.sourceIconId}} style="border-width:0px;" src={{family.sourceIconPath}} height="20px" title="{{family.sourceIconHoverText}}"/></div>
+                    <div style="flex: 0 0 175px; text-transform: capitalize;">{{family.name}}</div>
+                    <div style="flex: 2; font: 100% {{family.name}};">{{@root.previewAlphabet}}</div>
                 </li>
             {{/each}}
         </ul>

@@ -1,16 +1,16 @@
 <form autocomplete="off" style="padding: 0 2.5%" onsubmit="event.preventDefault()" style="display: flex;flex-direction: column;">
 	<div>
-		<label>{{localize "font-furnace.settings.addFontMenu.title"}}</label>
-		<p class="notes">{{localize "font-furnace.settings.addFontMenu.hint"}}<a href='https://fonts.google.com/'  target="_blank">{{localize "font-furnace.settings.addFontMenu.link"}}</a></p>
+		<label>{{localize (concat locPrefix "title")}}</label>
+		<p class="notes">{{localize (concat locPrefix "hint")}}<a href='https://fonts.google.com/'  target="_blank">{{localize (concat locPrefix "googleFontsLink")}}</a></p>
 	</div>
 	<hr>
 		<div class="form-group-stacked">
 			<input type="text" name="addFontName" id="addFontName" value="{{value}}">
-			<p class="notes">{{localize "font-furnace.settings.addFontMenu.inputHint"}}</p>
+			<p class="notes">{{localize (concat locPrefix "inputHint")}}</p>
 		</div>
 	<footer class="sheet-footer flexrow" style="margin-top: auto">
 		<button type="submit" name="submit">
-			<i class="fas fa-plus"></i> {{localize "font-furnace.settings.addFontMenu.saveButtonTitle"}}
+			<i class="fas fa-plus"></i> {{localize (concat locPrefix "saveButtonTitle")}}
 		</button>
 	</footer>
 </form>

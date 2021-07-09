@@ -1,32 +1,36 @@
 {
-    "font-furnace": {
+    "fvtt-fonts": {
         "settings": {
             "addFontMenuButton": {
-                "label": "🖋️ Add Font"
+                "label": "\uD83D\uDD8B Add Font"
             },
             "manageFontsMenuButton": {
-                "label": "📜 Manage Fonts"
+                "label": "\uD83D\uDCDC View & Manage Fonts"
             },
             "categorySortSetting": {
                 "title": "Sort Fonts by Category",
                 "hint": "By default, all fonts are sorted alphabetically. Enable this setting to sort by category instead, with default Foundry fonts first."
             },
             "addFontMenu": {
-                "frameTitle": "🔥 Font Furnace | Add Font",
+                "frameTitle": "\uD83D\uDD8B Add Font",
                 "title": "Add a Font",
                 "hint": "Add a font from the Google Fonts API to Foundry. Browse available font families on ",
-                "link": "the Google Fonts site.",
+                "googleFontsLink": "the Google Fonts site.",
                 "inputHint": "Enter the exact name of a single font, then press Add Font.",
                 "saveButtonTitle": "Add Font"
             },
             "manageFontsMenu": {
-                "frameTitle": "\uD83D\uDD25 Font Furnace | \uD83D\uDCDC Font Management",
-                "title": "Font Management",
+                "frameTitle": "\uD83D\uDCDC View & Manage Fonts",
+                "title": "View & Manage Fonts",
                 "hint": "From here, installed fonts can be previewed and GM-added fonts can be removed.",
                 "sourceColumnName": "Source",
                 "fontFamilyColumnName": "Font",
                 "previewColumnName": "Preview",
-                "previewAlphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                "previewAlphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                "foundryDefaultIconHover": "FoundryVTT Default Font",
+                "gmIconHover": "{title} - Added by GM",
+                "dungeondraftIconHover": "Dungeondraft Default Font",
+                "unknownIconHover": "Honestly, no idea how this got here."
             }
         },
         "userAlerts": {

@@ -1,6 +1,7 @@
+import constants from '../constants.js';
 import {loc} from '../utils.js';
 
-export class FontFurnaceManageFonts extends FormApplication {
+export class FvttFontsManageFonts extends FormApplication {
     
 	constructor (object, options = {}) {
 		super(object, options);
@@ -9,9 +10,9 @@ export class FontFurnaceManageFonts extends FormApplication {
     // Default options for the form
 	static get defaultOptions () {
 		return mergeObject(super.defaultOptions, {
-			id : 'font-furnace-manage-fonts-form',
+			id : 'fvtt-fonts-manage-fonts-form',
 			title : loc('settings','manageFontsMenu','frameTitle'),
-			template : './modules/font-furnace/templates/ManageFontsForm.hbs',
+			template : './modules/fvtt-fonts/templates/ManageFontsForm.hbs',
 			classes : ['sheet'],
 			width : 600,
 			height : "auto",
@@ -19,16 +20,41 @@ export class FontFurnaceManageFonts extends FormApplication {
 		});
 	}
 
+	// Assembles a map of the installed fonts for display on the Manage Fonts page
+	static assembleInstalledFonts() {
+		let assembledFonts = {};
+
+		// Add FoundryVTT default fonts
+		for (const key of constants.foundryDefaultFonts) {
+			assembledFonts[key] = {
+				name: key,
+				installed: true, 	//TODO Replace with function to determine install status
+				removable: false, 	// Default Foundry VTT fonts cannot be removed.
+				sourceIconId: "foundry-default-icon",
+				sourceIconPath: "icons/fvtt.png",
+				sourceIconHoverText: loc('settings','manageFontsMenu','foundryDefaultIconHover')
+			};
+		};
+		return assembledFonts
+	}
+
+
 	getData (options) {
-		const configFontFamilies = CONFIG.fontFamilies;
+		//const allFontFamilies = CONFIG.fontFamilies;
+		const previewAlphabet = loc('settings','manageFontsMenu','previewAlphabet')
+		const locPrefix = `${constants.moduleName}.settings.manageFontsMenu.`
+		const fontFamilies = FvttFontsManageFonts.assembleInstalledFonts();
+
 		return {
-			fontFamilies : configFontFamilies
+			previewAlphabet: previewAlphabet,
+			locPrefix : locPrefix,
+			fontFamilies : fontFamilies
 		};
 	}
 
 	// async activateListeners(html) {
 	// 	super.activateListeners(html);
-	// 	html.find('.font-furnace-alphabet').each(function () {
+	// 	html.find('.fvtt-fonts-alphabet').each(function () {
 	// 		const font = this.previousSibling;
 	// 		debug(font.innerHTML)
 	// 		this.style.font = font;

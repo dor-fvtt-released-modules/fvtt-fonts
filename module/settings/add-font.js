@@ -1,7 +1,8 @@
 import {loc,notify,isEmpty} from '../utils.js';
-import FontFurnace from '../font-furnace.js'
+import FvttFonts from '../fvtt-fonts.js'
+import constants from "../constants.js";
 
-export class FontFurnaceAddFont extends FormApplication {
+export class FvttFontsAddFont extends FormApplication {
     
 	constructor (object, options = {}) {
 		super(object, options);
@@ -10,9 +11,9 @@ export class FontFurnaceAddFont extends FormApplication {
     // Default options for the form
 	static get defaultOptions () {
 		return mergeObject(super.defaultOptions, {
-			id : 'font-furnace-add-font-form',
+			id : 'fvtt-fonts-add-font-form',
 			title : loc('settings','addFontMenu','frameTitle'),
-			template : './modules/font-furnace/templates/AddFontForm.hbs',
+			template : './modules/fvtt-fonts/templates/AddFontForm.hbs',
 			classes : ['sheet'],
 			width : 400,
 			height : 200,
@@ -20,22 +21,13 @@ export class FontFurnaceAddFont extends FormApplication {
 		});
 	}
 
-	// getData (options) {
+	getData (options) {
+		const locPrefix = `${constants.moduleName}.settings.addFontMenu.`
 
-	// 	function prepSetting (key) {
-	// 		let data = game.settings.settings.get(`polyglot.${key}`);
-	// 		return {
-	// 			value: game.settings.get('polyglot',`${key}`),
-	// 			name : data.name,
-	// 			hint : data.hint
-	// 		};
-	// 	}
-
-	// 	return {
-	// 		languages : prepSetting('Languages'),
-	// 		alphabets : prepSetting('Alphabets')
-	// 	};
-	// }
+		return {
+			locPrefix : locPrefix
+		};
+	}
 	
 	// activateListeners(html) {
 	// 	super.activateListeners(html);
@@ -59,6 +51,6 @@ export class FontFurnaceAddFont extends FormApplication {
 			return
 		}
 		
-		FontFurnace.processNewFont(newFont)
+		FvttFonts.processNewFont(newFont)
 	}
 }

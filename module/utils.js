@@ -44,6 +44,11 @@ export function isEmpty (string) {
 	return !string || string.length === 0 || /^\s*$/.test(string);
 }
 
+// Checks if something is an object
+export function isObject (variable) {
+	return Object.prototype.toString.call(variable) === '[object Object]'
+}
+
 // Simplifies setting settings
  export function settingSet (key, value) {
 	game.settings.set(constants.moduleName, key, value);
@@ -52,4 +57,16 @@ export function isEmpty (string) {
 // Simplifies getting settings
 export function settingGet (key) {
 	return game.settings.get(constants.moduleName, key);
+}
+
+// Registers useful handlebars helper functions
+export function setupHandlebarsHelpers() {
+	Handlebars.registerHelper('concat', function(...params) {
+		// Ignore the object appended by handlebars.
+		if (isObject(params[params.length - 1])) {
+			params.pop();
+		}
+
+		return params.join('');
+	})
 }
