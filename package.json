@@ -9,6 +9,9 @@
     "Dor (https://github.com/Doresain)"
   ],
   "devDependencies": {
+    "@itsjamie/esdoc-core": "^0.3",
+    "@itsjamie/esdoc-cli": "^0.3",
+    "@itsjamie/esdoc-standard-plugin": "^0.3",
     "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
