@@ -5,24 +5,18 @@
  * Note: specific versions are located in /<VERSION>
  */
 {
-  "parserOptions": {
-    "ecmaVersion": 2021,
-    "sourceType": "module"
-  },
-  "extends": [
-    "@typhonjs-fvtt/eslint-config-foundry.js/latest-0.8.x",
-    "prettier"
-  ],
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+    },
+    "extends": ["@typhonjs-fvtt/eslint-config-foundry.js/latest-0.8.x", "prettier"],
 
-  // Prevents overwriting any built in globals particularly from `@typhonjs-fvtt/eslint-config-foundry.js`.
-  // `event / window.event` shadowing is allowed due to being a common variable name and an uncommonly used browser
-  // feature.
-  //
-  // Note: if you are using Typescript you must use `@typescript-eslint/no-shadow`
-  "rules": {
-    "no-shadow": [
-      "error",
-      { "builtinGlobals": true, "hoist": "all", "allow": ["event"] }
-    ]
-  }
+    // Prevents overwriting any built in globals particularly from `@typhonjs-fvtt/eslint-config-foundry.js`.
+    // `event / window.event` shadowing is allowed due to being a common variable name and an uncommonly used browser
+    // feature.
+    //
+    // Note: if you are using Typescript you must use `@typescript-eslint/no-shadow`
+    "rules": {
+        "no-shadow": ["error", { "builtinGlobals": true, "hoist": "all", "allow": ["event"] }]
+    }
 }

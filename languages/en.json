@@ -1,5 +1,10 @@
 {
   "fvtt-fonts": {
+    "mainSettings": {
+      "settingsButton": {
+        "label": "\uD83D\uDCDC Fonts Configuration"
+      }
+    },
     "settings": {
       "addFontMenuButton": {
         "label": "\uD83D\uDD8B Add Font"

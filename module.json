@@ -1,41 +1,41 @@
 {
-  "name": "fvtt-fonts",
-  "title": "\uD83D\uDCDC Fonts",
-  "description": "",
-  "version": "This is auto replaced",
-  "library": "false",
-  "manifestPlusVersion": "1.0.0",
-  "minimumCoreVersion": "0.7.9",
-  "compatibleCoreVersion": "0.8.8",
-  "authors": [
-    {
-      "name": "Dor",
-      "url": "https://github.com/Doresain",
-      "discord": "Dor#7514"
+    "name": "fvtt-fonts",
+    "title": "\uD83D\uDCDC Fonts",
+    "description": "",
+    "version": "This is auto replaced",
+    "library": "false",
+    "manifestPlusVersion": "1.0.0",
+    "minimumCoreVersion": "0.7.9",
+    "compatibleCoreVersion": "0.8.8",
+    "authors": [
+        {
+            "name": "Dor",
+            "url": "https://github.com/Doresain",
+            "discord": "Dor#7514"
+        }
+    ],
+    "dependencies": [],
+    "conflicts": [],
+    "esmodules": ["/module/init.js"],
+    "styles": ["/styles/fvtt-fonts.css"],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "languages/en.json"
+        }
+    ],
+    "url": "This is auto replaced",
+    "manifest": "This is auto replaced",
+    "download": "This is auto replaced",
+    "media": [
+        {
+            "type": "icon",
+            "url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4"
+        }
+    ],
+    "bugs": "https://github.com/Ethck/legendary-training-wheels/issues",
+    "flags": {
+        "allowBugReporter": true
     }
-  ],
-  "dependencies": [],
-  "conflicts": [],
-  "esmodules": ["/module/init.js"],
-  "styles": ["/styles/fvtt-fonts.css"],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "languages/en.json"
-    }
-  ],
-  "url": "This is auto replaced",
-  "manifest": "This is auto replaced",
-  "download": "This is auto replaced",
-  "media": [
-    {
-      "type": "icon",
-      "url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4"
-    }
-  ],
-  "bugs": "https://github.com/Ethck/legendary-training-wheels/issues",
-  "flags": {
-    "allowBugReporter": true
-  }
 }

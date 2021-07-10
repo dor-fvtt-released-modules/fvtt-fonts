@@ -1,5 +1,5 @@
 {
-  "source": "./module",
-  "destination": "./docs",
-  "plugins": [{ "name": "@itsjamie/esdoc-standard-plugin" }]
+    "source": "./module",
+    "destination": "./docs",
+    "plugins": [{ "name": "@itsjamie/esdoc-standard-plugin" }]
 }
