@@ -1,6 +1,6 @@
 import { loc, notify, isEmpty } from '../utils.js';
 import FvttFonts from '../fvtt-fonts.js';
-import constants from '../constants.js';
+import * as constants from '../constants.js';
 
 export class FvttFontsAddFont extends FormApplication {
     constructor(object, options = {}) {

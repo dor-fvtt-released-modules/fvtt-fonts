@@ -3,6 +3,50 @@
     "mainSettings": {
       "settingsButton": {
         "label": "\uD83D\uDCDC Fonts Configuration"
+      },
+      "mainSettingsFormFrame": {
+        "frameTitle": "\uD83D\uDCDC Fonts Configuration",
+        "fontPreviewerTabLabel": "Font Previewer",
+        "fontManagerTabLabel": "Font Manager",
+        "addFontsTabLabel": "Add Font",
+        "fontPacksTabLabel": "Font Packs",
+        "preferencesTabLabel": "Preferences",
+        "closeButtonTitle": "Close",
+        "resetDefaultsButtonTitle": "Reset Defaults"
+      },
+      "fontPreviewerTab": {
+
+      },
+      "fontManagerTab": {
+
+      },
+      "addFontTab": {
+        "title": "Add a Font",
+        "hint": "Add a font from the Google Fonts API to Foundry. Browse available font families on ",
+        "googleFontsLink": "the Google Fonts site.",
+        "inputHint": "Enter the exact name of a single font, then press Add Font.",
+        "addButtonTitle": "Add Font"
+      },
+      "fontPacksTab": {
+        "fvttFontsDefaultFontsVisibleSetting": {
+          "label": "Enable \uD83D\uDCDC Fonts Default Font Pack",
+          "hint": "This module comes with a selection of free fonts. Disable this pack if you would prefer not to see these fonts in the Font Manager."
+        },
+        "gameSystemFontsVisibleSetting": {
+          "label": "{title} Font Pack",
+          "dnd5eHint": "",
+          "pf2eHint": ""
+        },
+        "dungeondraftFontsVisibleSetting": {
+          "label": "Enable Dungeondraft Font Pack",
+          "hint": "Dungeondraft, the mapping tool by Megasploot, comes with 25 default fonts. By enabling this pack and then selecting the specific fonts you want in the Font Manager, your drawing and map notes in FoundryVTT can match the labels on your Dungeondraft maps."
+        }
+      },
+      "preferencesTab":{
+        "categorySortSetting": {
+          "label": "Sort Fonts in Dropdowns by Category",
+          "hint": "By default, all fonts are sorted alphabetically in UI dropdowns. Enable this setting to sort by category instead, with default Foundry fonts first."
+        }
       }
     },
     "settings": {
@@ -12,21 +56,8 @@
       "manageFontsMenuButton": {
         "label": "\uD83D\uDCDC View & Manage Fonts"
       },
-      "categorySortSetting": {
-        "title": "Sort Fonts by Category",
-        "hint": "By default, all fonts are sorted alphabetically in UI dropdowns. Enable this setting to sort by category instead, with default Foundry fonts first."
-      },
-      "dungeondraftFontsVisibleSetting": {
-        "title": "Add Dungeondraft fonts to the Font Manager?",
-        "hint": "Dungeondraft, the mapping tool by Megasploot, comes with 25 default fonts. By enabling this setting and then selecting the specific fonts you want in the Font Manager, your drawing and map notes in FoundryVTT can match the labels on your Dungeondraft maps."
-      },
       "addFontMenu": {
-        "frameTitle": "\uD83D\uDD8B Add Font",
-        "title": "Add a Font",
-        "hint": "Add a font from the Google Fonts API to Foundry. Browse available font families on ",
-        "googleFontsLink": "the Google Fonts site.",
-        "inputHint": "Enter the exact name of a single font, then press Add Font.",
-        "saveButtonTitle": "Add Font"
+
       },
       "manageFontsMenu": {
         "frameTitle": "\uD83D\uDCDC View & Manage Fonts",
@@ -39,6 +70,7 @@
         "foundryDefaultIconHover": "FoundryVTT Default Font",
         "fvttFontsDefaultIconHover": "{title} - Default Font",
         "gmIconHover": "{title} - Added by GM",
+        "gameSystemIconHover": "TODO",
         "dungeondraftIconHover": "Dungeondraft Default Font",
         "unknownIconHover": "Honestly, no idea how this got here.",
         "panagrams": {

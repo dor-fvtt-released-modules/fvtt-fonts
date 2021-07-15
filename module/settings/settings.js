@@ -1,33 +1,30 @@
-import constants from '../constants.js';
-import { loc } from '../utils.js';
+import * as constants from '../constants.js';
+import { loc, gameSystemPackAvailable } from '../utils.js';
 import { FvttFontsMainSettingsForm } from './fvtt-fonts-main-settings-form.js';
 import { FvttFontsAddFont } from './add-font.js';
 import { FvttFontsManageFonts } from './manage-fonts.js';
 
 // Register default settings
 export default function registerSettings() {
+    // Main settings menu
     game.settings.registerMenu(constants.moduleName, 'mainSettingsForm', {
         label: loc('mainSettings', 'settingsButton', 'label'),
         type: FvttFontsMainSettingsForm,
         restricted: true,
     });
+    // Old menu TODO remove when deprecated
     game.settings.registerMenu(constants.moduleName, 'manageFonts', {
         label: loc('settings', 'manageFontsMenuButton', 'label'),
         type: FvttFontsManageFonts,
         restricted: true,
     });
+    // Old menu TODO Remove when deprecated
     game.settings.registerMenu(constants.moduleName, 'addFont', {
         label: loc('settings', 'addFontMenuButton', 'label'),
         type: FvttFontsAddFont,
         restricted: true,
     });
-    game.settings.register(constants.moduleName, 'fvttFontsDefaultFonts', {
-        scope: 'world',
-        config: false,
-        default: constants.fvttFontsDefaultFonts,
-        type: String,
-        //onChange: () => FvttFonts.render({settings: true})
-    });
+    // Stores fonts the GM has added to the system successfully
     game.settings.register(constants.moduleName, 'gmAddedFonts', {
         scope: 'world',
         config: false,
@@ -35,26 +32,67 @@ export default function registerSettings() {
         type: String,
         //onChange: () => FvttFonts.render({settings: true})
     });
-    game.settings.register(constants.moduleName, 'dungeondraftFontsVisible', {
-        name: loc('settings', 'dungeondraftFontsVisibleSetting', 'title'),
-        hint: loc('settings', 'dungeondraftFontsVisibleSetting', 'hint'),
-        scope: 'world',
-        config: true,
-        default: false,
-        type: Boolean,
-    });
-    game.settings.register(constants.moduleName, 'dungeondraftEnabledFonts', {
+    // Stores which of the gm-added fonts are currently enabled
+    game.settings.register(constants.moduleName, 'gmAddedFontsEnabled', {
         scope: 'world',
         config: false,
         default: [],
         type: String,
         //onChange: () => FvttFonts.render({settings: true})
     });
-    game.settings.register(constants.moduleName, 'categorySort', {
-        name: loc('settings', 'categorySortSetting', 'title'),
-        hint: loc('settings', 'categorySortSetting', 'hint'),
+    // Determines if the module default fonts should be visible in the font manager
+    game.settings.register(constants.moduleName, 'fvttFontsDefaultFontsVisible', {
         scope: 'world',
-        config: true,
+        config: false,
+        default: true,
+        type: Boolean,
+        //onChange: () => FvttFonts.render({settings: true})
+    });
+    // Determines which of the module default fonts, if visible, are enabled
+    game.settings.register(constants.moduleName, 'fvttFontsDefaultFontsEnabled', {
+        scope: 'world',
+        config: false,
+        default: [],
+        type: String,
+        //onChange: () => FvttFonts.render({settings: true})
+    });
+    // Determines if the dungeondraft fonts are visible in the font manager
+    game.settings.register(constants.moduleName, 'dungeondraftFontsVisible', {
+        scope: 'world',
+        config: false,
+        default: false,
+        type: Boolean,
+    });
+    // Determines which of the dungeondraft fonts, if visible, are enabled
+    game.settings.register(constants.moduleName, 'dungeondraftFontsEnabled', {
+        scope: 'world',
+        config: false,
+        default: [],
+        type: String,
+        //onChange: () => FvttFonts.render({settings: true})
+    });
+    // Only registers the game system settings if a pack is available for that system
+    if (gameSystemPackAvailable()) {
+        // Determines if the game system fonts are visible in the font manager
+        game.settings.register(constants.moduleName, 'gameSystemFontsVisible', {
+            scope: 'world',
+            config: false,
+            default: false,
+            type: Boolean,
+        });
+        // Determines which of the game system fonts, if visible, are enabled
+        game.settings.register(constants.moduleName, 'gameSystemFontsEnabled', {
+            scope: 'world',
+            config: false,
+            default: [],
+            type: String,
+            //onChange: () => FvttFonts.render({settings: true})
+        });
+    }
+    // Overrides the default alphabetical sort behavior when inserting fonts into CONFIG.fontFamilies
+    game.settings.register(constants.moduleName, 'categorySort', {
+        scope: 'world',
+        config: false,
         default: false,
         type: Boolean,
     });

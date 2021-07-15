@@ -1,4 +1,4 @@
-import constants from './constants.js';
+import * as constants from './constants.js';
 import { setupHandlebarsHelpers } from './utils.js';
 import registerSettings from './settings/settings.js';
 

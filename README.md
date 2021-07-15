@@ -8,6 +8,9 @@
 
 -   Account for Polyglot
 -   Account for Forien's Custom Fonts
+-   Account for FVTT Better Text Drawings
+-   Account for things modifying TinyMCE like TinyMCE toolbar config
+-   Try for compat with popular journal modules (Mon's Enhanced Journal)
 -   Add game system fonts for popular systems (https://www.reddit.com/r/Pathfinder2e/comments/mo2onb/text_fonts_used_in_the_books/)
 -   Handle adding duplicates (within and across categories)
 -   Move fonts on ManageFonts into sections

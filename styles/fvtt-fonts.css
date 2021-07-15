@@ -1,3 +1,18 @@
+/*Styles*/
+.fvtt-fonts {
+
+}
+
+.fvtt-fonts nav, .fvtt-fonts footer {
+    flex: 0;
+}
+
+.fvtt-fonts nav.sheet-tabs {
+    border-bottom: 1px solid #000;
+    line-height: 25px;
+}
+
+
 /*FVTT Fonts Default Fonts*/
 
 @font-face {
@@ -193,4 +208,25 @@
     src: url('../fonts/UnifrakturMaguntia-Regular.ttf') format('truetype');
 }
 
+/*System-specific Fonts*/
+@font-face {
+    font-family: 'Dalelands Uncial';
+    src: url('../fonts/DalelandsUncial-BOpn.ttf') format('truetype');
+}
 
+@font-face {
+    font-family: 'Vecna';
+    src: url('../fonts/Vecna-oppx.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Crimson Pro';
+    src: url('../fonts/CrimsonPro-VariableFont_wght.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Eczar';
+    src: url('../fonts/Eczar-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+}

@@ -1,4 +1,4 @@
-import constants from './constants.js';
+import * as constants from './constants.js';
 
 // Simplifies localization
 export function loc(domain, section, key, locPlaceholders = {}) {
@@ -78,4 +78,14 @@ export function setupHandlebarsHelpers() {
 
         return params.join('');
     });
+}
+
+// Checks if there is an available font pack for a game system.  If no id provided, assumes the current system.
+export function gameSystemPackAvailable(id = game.system.id) {
+    return constants.gameSystemFontPacks.list.includes(id);
+}
+
+// Easily retrieve game system details. If no id provided, assumes the current system.
+export function gameSystemDetails(id = game.system.id) {
+    return constants.gameSystemFontPacks.details[id];
 }
