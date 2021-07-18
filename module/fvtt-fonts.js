@@ -1,46 +1,6 @@
 import { notify, debug } from './utils.js';
 
 export default class FvttFonts {
-    // Receives added fonts and validates that they exist in the Google Fonts API. If they don't the result will be a CORS error.
-    static processNewFont(newFont) {
-        let url = `https://fonts.googleapis.com/css2?family=${newFont}`;
-
-        fetch(url, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-        })
-            .then(function (response) {
-                if (response.status === 200) {
-                    FvttFonts._acceptNewFont(response.status, newFont); // HTTP 200 = font exists
-                } else {
-                    FvttFonts._rejectNewFont(response.status); // Any other HTTP code - font doesn't exist
-                }
-            })
-            .catch(function (err) {
-                FvttFonts._rejectNewFont(err, newFont); // An error - usually CORS - means the font doesn't exist
-            });
-    }
-
-    static _acceptNewFont(response, newFont) {
-        debug(`Accept Response: ${response}`);
-
-        // let currentFontsList = settingGet('fonts')
-
-        notify({ locDomain: 'userAlerts', locSection: 'addFontSave', locKey: 'added' }, 'info', {
-            newFont: `${newFont}`,
-        });
-    }
-
-    // Handles messaging the user when a submitted font is rejected
-    static _rejectNewFont(response, newFont) {
-        debug(`Reject Response: ${response}`);
-        notify({ locDomain: 'userAlerts', locSection: 'addFontSave', locKey: 'invalid' }, 'error', {
-            newFont: `${newFont}`,
-        });
-    }
-
     /*   static render(options = {settings: false}) {
     let fontFamilies = game.settings.get(constants.moduleName, 'tempFontSetting');
 

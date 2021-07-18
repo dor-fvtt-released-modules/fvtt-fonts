@@ -31,10 +31,10 @@
         </div>
         <hr>
         <div class="form-group-stacked">
-          <input type="text" name="addFontName" id="addFontName" value="{{value}}">
+          <input type="text" name="gmAddedFonts" id="gmAddedFonts" value="{{value}}">
           <p class="notes">{{localize (concat locPrefix "addFontTab.inputHint")}}</p>
         </div>
-        <button type="submit" name="submit">
+        <button type="button" data-action="addFont">
           <i class="fas fa-plus"></i> {{localize (concat locPrefix "addFontTab.addButtonTitle")}}
         </button>
         <hr style="width:80%">

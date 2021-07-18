@@ -1,18 +1,27 @@
 import * as constants from '../constants.js';
+import AddFontLogic from './add-font-logic.js';
 import {
     gameSystemPackAvailable,
     gameSystemDetails,
     loc,
     settingSet,
     settingGet,
+    settingDetails,
+    isEmpty,
+    notify,
 } from '../utils.js';
 
 export class FvttFontsMainSettingsForm extends FormApplication {
+    constructor(object, options = {}) {
+        super(object, options);
+    }
+
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: 'fvtt-fonts-main-settings-form',
             title: loc('mainSettings', 'mainSettingsFormFrame', 'frameTitle'),
             template: `modules/${constants.moduleName}/templates/FvttFontsMainSettingsMenu.hbs`,
+            classes: ['sheet'],
             width: 750,
             height: 'auto',
             closeOnSubmit: false,
@@ -54,11 +63,23 @@ export class FvttFontsMainSettingsForm extends FormApplication {
 
     activateListeners(html) {
         super.activateListeners(html);
+
+        // Listen for add font button
+        html.find('button').on('click', async (event) => {
+            if (event.currentTarget?.dataset?.action === 'addFont') {
+                AddFontLogic.newFontSubmitted(html);
+            }
+        });
+        // End Add Font processing block
     }
 
     async _updateObject(ev, formData) {
         for (const [key, value] of Object.entries(formData)) {
-            settingSet(key, value);
+            if (settingDetails(key).type.name === 'Boolean') {
+                settingSet(key, value);
+                // } else if (key === 'gmFontsAdded' && key) {
+                //  gmFonts = settingGet(key);
+            }
         }
     }
 }

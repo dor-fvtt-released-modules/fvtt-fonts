@@ -1,7 +1,6 @@
 import * as constants from '../constants.js';
 import { loc, gameSystemPackAvailable } from '../utils.js';
 import { FvttFontsMainSettingsForm } from './fvtt-fonts-main-settings-form.js';
-import { FvttFontsAddFont } from './add-font.js';
 import { FvttFontsManageFonts } from './manage-fonts.js';
 
 // Register default settings
@@ -18,18 +17,12 @@ export default function registerSettings() {
         type: FvttFontsManageFonts,
         restricted: true,
     });
-    // Old menu TODO Remove when deprecated
-    game.settings.registerMenu(constants.moduleName, 'addFont', {
-        label: loc('settings', 'addFontMenuButton', 'label'),
-        type: FvttFontsAddFont,
-        restricted: true,
-    });
     // Stores fonts the GM has added to the system successfully
     game.settings.register(constants.moduleName, 'gmAddedFonts', {
         scope: 'world',
         config: false,
         default: [],
-        type: String,
+        type: Array,
         //onChange: () => FvttFonts.render({settings: true})
     });
     // Stores which of the gm-added fonts are currently enabled
@@ -37,7 +30,7 @@ export default function registerSettings() {
         scope: 'world',
         config: false,
         default: [],
-        type: String,
+        type: Array,
         //onChange: () => FvttFonts.render({settings: true})
     });
     // Determines if the module default fonts should be visible in the font manager
@@ -53,7 +46,7 @@ export default function registerSettings() {
         scope: 'world',
         config: false,
         default: [],
-        type: String,
+        type: Array,
         //onChange: () => FvttFonts.render({settings: true})
     });
     // Determines if the dungeondraft fonts are visible in the font manager
@@ -68,7 +61,7 @@ export default function registerSettings() {
         scope: 'world',
         config: false,
         default: [],
-        type: String,
+        type: Array,
         //onChange: () => FvttFonts.render({settings: true})
     });
     // Only registers the game system settings if a pack is available for that system
@@ -85,7 +78,7 @@ export default function registerSettings() {
             scope: 'world',
             config: false,
             default: [],
-            type: String,
+            type: Array,
             //onChange: () => FvttFonts.render({settings: true})
         });
     }

@@ -68,6 +68,11 @@ export function settingGet(key) {
     return game.settings.get(constants.moduleName, key);
 }
 
+// Gets setting details as object
+export function settingDetails(key) {
+    return game.settings.settings.get(`${constants.moduleName}.${key}`);
+}
+
 // Registers useful handlebars helper functions
 export function setupHandlebarsHelpers() {
     Handlebars.registerHelper('concat', function (...params) {
