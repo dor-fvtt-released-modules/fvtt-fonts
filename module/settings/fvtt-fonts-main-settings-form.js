@@ -22,7 +22,7 @@ export class FvttFontsMainSettingsForm extends FormApplication {
         return mergeObject(super.defaultOptions, {
             id: 'fvtt-fonts-main-settings-form',
             title: loc('mainSettings', 'mainSettingsFormFrame', 'frameTitle'),
-            template: `modules/${constants.moduleName}/templates/FvttFontsMainSettingsMenu.hbs`,
+            template: `modules/${constants.moduleName}/templates/FvttFontsMainSettingsForm.hbs`,
             classes: ['sheet'],
             width: 750,
             height: 'auto',
@@ -35,9 +35,8 @@ export class FvttFontsMainSettingsForm extends FormApplication {
     getData(options) {
         let data = {};
 
-        const enabledFonts = {
-            enabledFonts: PreviewFontsLogic.assembleEnabledFonts(),
-        };
+        const enabledFonts = { enabledFonts: CONFIG.fontFamilies };
+        // { enabledFonts: PreviewFontsLogic.assembleEnabledFonts(),};
         mergeObject(data, enabledFonts);
 
         const miscConstants = {
@@ -72,6 +71,18 @@ export class FvttFontsMainSettingsForm extends FormApplication {
     activateListeners(html) {
         super.activateListeners(html);
 
+        // Listen for font change in Font Previewer
+        html.find('.previewed-font').on('change', async (event) => {
+            const previewedFont = event.currentTarget.value; //font select's value
+            html.find('.font-preview-text').each(function () {
+                let z = previewedFont;
+                this.style.font = `120% ${previewedFont}`; // TODO use a % per font
+            }, previewedFont);
+            console.log(this.position);
+            this.setPosition({ height: 'auto' });
+            console.log(this.position);
+        });
+
         // Listen for add font button
         html.find('button').on('click', async (event) => {
             if (event.currentTarget?.dataset?.action === 'addFont') {
@@ -83,7 +94,8 @@ export class FvttFontsMainSettingsForm extends FormApplication {
 
     async _updateObject(ev, formData) {
         for (const [key, value] of Object.entries(formData)) {
-            if (settingDetails(key).type.name === 'Boolean') {
+            let details = settingDetails(key);
+            if (details && details.type.name === 'Boolean') {
                 settingSet(key, value);
                 // } else if (key === 'gmFontsAdded' && key) {
                 //  gmFonts = settingGet(key);

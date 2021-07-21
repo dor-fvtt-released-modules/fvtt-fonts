@@ -16,6 +16,7 @@
 -   Build install/uninstall workflow
 -   Polish manage fonts UI, change opening location
 -   Finish API
+-   Set all font %s and use them
 
 ---
 

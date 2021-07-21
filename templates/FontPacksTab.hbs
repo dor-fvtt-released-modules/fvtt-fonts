@@ -1,0 +1,24 @@
+<div class="settings-list">
+  {{! FVTT Fonts Default Pack setting}}
+  <div class="form-group">
+    <label>{{localize (concat locPrefix "fontPacksTab.fvttFontsDefaultFontsVisibleSetting.label")}}</label>
+    <input type="checkbox" data-fvttFontsDefaultFontsVisible name="fvttFontsDefaultFontsVisible" data-dtype="Boolean" {{checked fvttFontsDefaultFontsVisible}} />
+    <p class="notes">{{localize (concat locPrefix "fontPacksTab.fvttFontsDefaultFontsVisibleSetting.hint")}}</p>
+  </div>
+  <hr style="width:80%">
+  {{! System pack setting}}
+  {{#if gameSystemPackAvailable}}
+    <div class="form-group">
+      <label>{{localize (concat locPrefix "fontPacksTab.gameSystemFontsVisibleSetting.label") title=gameSystemTitle }}</label>
+      <input type="checkbox" data-gameSystemFontsVisible name="gameSystemFontsVisible" data-dtype="Boolean" {{checked gameSystemFontsVisible}} />
+      <p class="notes">{{localize (concat locPrefix "fontPacksTab.gameSystemFontsVisibleSetting." gameSystemName "Hint" )}}</p>
+    </div>
+  {{/if}}
+  {{! Dungeondraft pack setting}}
+  <hr style="width:80%">
+  <div class="form-group">
+    <label>{{localize (concat locPrefix "fontPacksTab.dungeondraftFontsVisibleSetting.label")}}</label>
+    <input type="checkbox" data-dungeondraftFontsVisible name="dungeondraftFontsVisible" data-dtype="Boolean" {{checked dungeondraftFontsVisible}} />
+    <p class="notes">{{localize (concat locPrefix "fontPacksTab.dungeondraftFontsVisibleSetting.hint")}}</p>
+  </div>
+</div>

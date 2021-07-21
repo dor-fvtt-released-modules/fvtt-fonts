@@ -85,6 +85,22 @@ export function setupHandlebarsHelpers() {
     });
 }
 
+/**
+ * Preloads templates for partials
+ */
+export function preloadTemplates() {
+    let templates = [
+        'templates/FontPreviewerTab.hbs',
+        'templates/FontManagerTab.hbs',
+        'templates/AddFontTab.hbs',
+        'templates/FontPacksTab.hbs',
+        'templates/PreferencesTab.hbs',
+    ];
+
+    templates = templates.map((t) => `modules/${constants.moduleName}/${t}`);
+    loadTemplates(templates);
+}
+
 // Checks if there is an available font pack for a game system.  If no id provided, assumes the current system.
 export function gameSystemPackAvailable(id = game.system.id) {
     return constants.gameSystemFontPacks.list.includes(id);

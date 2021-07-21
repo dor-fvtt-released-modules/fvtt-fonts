@@ -1,0 +1,43 @@
+<form autocomplete="off" class="fvtt-fonts flexcol" >
+  {{!The tabbed form nav. Requres tabs preperty in defaultOptions to function}}
+  <nav class="sheet-tabs tabs" data-group="fvtt-fonts-main">
+    <a class="item active" data-tab="fontManager"><i class="fas fa-font"></i> {{localize (concat locPrefix "mainSettingsFormFrame.fontManagerTabLabel")}}</a>
+    <a class="item" data-tab="fontPreviewer"><i class="fas fa-scroll"></i> {{localize (concat locPrefix "mainSettingsFormFrame.fontPreviewerTabLabel")}}</a>
+    <a class="item" data-tab="addFont"><i class="fas fa-feather-alt"></i> {{localize (concat locPrefix "mainSettingsFormFrame.addFontsTabLabel")}}</a>
+    <a class="item" data-tab="fontPacks"><i class="fas fa-box"></i> {{localize (concat locPrefix "mainSettingsFormFrame.fontPacksTabLabel")}}</a>
+    <a class="item" data-tab="preferences"><i class="fas fa-cogs"></i> {{localize (concat locPrefix "mainSettingsFormFrame.preferencesTabLabel")}}</a>
+  </nav>
+  {{! Starts the body section which will change when the tab is changed}}
+  <section id="config-tabs" class="content">
+    {{! Font Manager tab}}
+    <div class="tab active" data-tab="fontManager" data-group="fvtt-fonts-main">
+      <div class="settings-list">
+        {{> "modules/fvtt-fonts/templates/FontManagerTab.hbs"}}
+      </div>
+    </div>
+    {{! Font Previewer tab}}
+    <div class="tab active" data-tab="fontPreviewer" data-group="fvtt-fonts-main">
+      {{> "modules/fvtt-fonts/templates/FontPreviewerTab.hbs"}}
+    </div>
+    {{! Add Font tab}}
+    <div class="tab" data-tab="addFont" data-group="fvtt-fonts-main" >
+      {{> "modules/fvtt-fonts/templates/AddFontTab.hbs"}}
+    </div>
+    {{! Font Packs tab}}
+    <div class="tab" data-tab="fontPacks" data-group="fvtt-fonts-main">
+      {{> "modules/fvtt-fonts/templates/FontPacksTab.hbs"}}
+    </div>
+    {{! Preferences tab}}
+    <div class="tab" data-tab="preferences" data-group="fvtt-fonts-main">
+      {{> "modules/fvtt-fonts/templates/PreferencesTab.hbs"}}
+    </div>
+  </section>
+  <footer class="sheet-footer flexrow">
+    <button type="submit" name="close">
+      <i class="fas fa-door-closed"></i> {{localize (concat locPrefix "mainSettingsFormFrame.closeButtonTitle")}}
+    </button>
+    <button type="button" data-cancel name="resetDefaults">
+      <i class="fas fa-undo"></i> {{localize (concat locPrefix "mainSettingsFormFrame.resetDefaultsButtonTitle")}}
+    </button>
+  </footer>
+</form>

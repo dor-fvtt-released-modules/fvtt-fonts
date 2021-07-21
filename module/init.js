@@ -1,10 +1,11 @@
 import * as constants from './constants.js';
-import { setupHandlebarsHelpers } from './utils.js';
+import { setupHandlebarsHelpers, preloadTemplates } from './utils.js';
 import registerSettings from './settings/settings.js';
 import FvttFontsApi from './fvtt-fonts-api.js';
 
 // Register settings enumerated in settings.js
 Hooks.once('init', () => {
+    preloadTemplates();
     registerSettings();
     setupHandlebarsHelpers();
     FvttFontsApi.registerApi();

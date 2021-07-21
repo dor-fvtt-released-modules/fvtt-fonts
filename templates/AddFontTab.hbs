@@ -1,0 +1,15 @@
+<div class="settings-list">
+  <div>
+    <label>{{localize (concat locPrefix "addFontTab.title")}}</label>
+    <p class="notes">{{localize (concat locPrefix "addFontTab.hint")}}<a href='https://fonts.google.com/'  target="_blank">{{localize (concat locPrefix "addFontTab.googleFontsLink")}}</a></p>
+  </div>
+  <hr>
+  <div class="form-group-stacked">
+    <input type="text" name="gmAddedFonts" id="gmAddedFonts" value="{{value}}">
+    <p class="notes">{{localize (concat locPrefix "addFontTab.inputHint")}}</p>
+  </div>
+  <button type="button" data-action="addFont">
+    <i class="fas fa-plus"></i> {{localize (concat locPrefix "addFontTab.addButtonTitle")}}
+  </button>
+  <hr style="width:80%">
+</div>
