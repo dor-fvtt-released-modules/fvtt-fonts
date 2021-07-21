@@ -1,4 +1,5 @@
 import * as constants from '../constants.js';
+import PreviewFontsLogic from './preview-fonts-logic.js';
 import AddFontLogic from './add-font-logic.js';
 import {
     gameSystemPackAvailable,
@@ -7,6 +8,7 @@ import {
     settingSet,
     settingGet,
     settingDetails,
+    panagramShuffler,
     isEmpty,
     notify,
 } from '../utils.js';
@@ -33,8 +35,14 @@ export class FvttFontsMainSettingsForm extends FormApplication {
     getData(options) {
         let data = {};
 
+        const enabledFonts = {
+            enabledFonts: PreviewFontsLogic.assembleEnabledFonts(),
+        };
+        mergeObject(data, enabledFonts);
+
         const miscConstants = {
             locPrefix: `${constants.moduleName}.mainSettings.`,
+            previewAlphabet: panagramShuffler(),
         };
         mergeObject(data, miscConstants);
 

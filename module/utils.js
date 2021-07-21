@@ -94,3 +94,9 @@ export function gameSystemPackAvailable(id = game.system.id) {
 export function gameSystemDetails(id = game.system.id) {
     return constants.gameSystemFontPacks.details[id];
 }
+
+// Just for fun. Gets one of ten random panagrams to use as the preview alphabet.
+export function panagramShuffler() {
+    const shuffle = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+    return loc('settings', 'manageFontsMenu', `panagrams.panagram-${shuffle}`);
+}

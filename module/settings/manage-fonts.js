@@ -1,5 +1,11 @@
 import * as constants from '../constants.js';
-import { loc, settingGet, gameSystemPackAvailable, gameSystemDetails } from '../utils.js';
+import {
+    loc,
+    settingGet,
+    gameSystemPackAvailable,
+    gameSystemDetails,
+    panagramShuffler,
+} from '../utils.js';
 
 export class FvttFontsManageFonts extends FormApplication {
     constructor(object, options = {}) {
@@ -102,15 +108,9 @@ export class FvttFontsManageFonts extends FormApplication {
         return assembledFonts;
     }
 
-    // Just for fun. Gets one of ten random panagrams to use as the preview alphabet.
-    static panagramShuffler() {
-        const shuffle = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-        return loc('settings', 'manageFontsMenu', `panagrams.panagram-${shuffle}`);
-    }
-
     getData(options) {
         //const allFontFamilies = CONFIG.fontFamilies;
-        const previewAlphabet = FvttFontsManageFonts.panagramShuffler();
+        const previewAlphabet = panagramShuffler();
         const locPrefix = `${constants.moduleName}.settings.manageFontsMenu.`;
         const fontFamilies = FvttFontsManageFonts.assembleInstalledFonts();
 
