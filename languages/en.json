@@ -47,8 +47,22 @@
           "label": "Sort Fonts in Dropdowns by Category",
           "hint": "By default, all fonts are sorted alphabetically in UI dropdowns. Enable this setting to sort by category instead, with default Foundry fonts first."
         }
+      },
+      "panagrams": {
+        "panagramCount": "10",
+        "panagram-1": "The quick brown fox jumps over the lazy dog.",
+        "panagram-2": "Amazingly few discotheques provide jukeboxes.",
+        "panagram-3": "Glib jocks quiz nymph to vex dwarf.",
+        "panagram-4": "Sphinx of black quartz, judge my vow.",
+        "panagram-5": "Pack my box with five dozen liquor jugs.",
+        "panagram-6": "The five boxing wizards jump quickly.",
+        "panagram-7": "Jackdaws love my big sphinx of quartz.",
+        "panagram-8": "Quick zephyrs blow, vexing daft Jim.",
+        "panagram-9": "A wizard's job is to vex chumps quickly in fog.",
+        "panagram-10": "By Jove, my quick study of lexicography won a prize!"
       }
     },
+
     "settings": {
       "addFontMenuButton": {
         "label": "\uD83D\uDD8B Add Font"
@@ -72,19 +86,7 @@
         "gmIconHover": "{title} - Added by GM",
         "gameSystemIconHover": "TODO",
         "dungeondraftIconHover": "Dungeondraft Default Font",
-        "unknownIconHover": "Honestly, no idea how this got here.",
-        "panagrams": {
-          "panagram-1": "The quick brown fox jumps over the lazy dog.",
-          "panagram-2": "Amazingly few discotheques provide jukeboxes.",
-          "panagram-3": "Glib jocks quiz nymph to vex dwarf.",
-          "panagram-4": "Sphinx of black quartz, judge my vow.",
-          "panagram-5": "Pack my box with five dozen liquor jugs.",
-          "panagram-6": "The five boxing wizards jump quickly.",
-          "panagram-7": "Jackdaws love my big sphinx of quartz.",
-          "panagram-8": "Quick zephyrs blow, vexing daft Jim.",
-          "panagram-9": "A wizard's job is to vex chumps quickly in fog.",
-          "panagram-10": "By Jove, my quick study of lexicography won a prize!"
-        }
+        "unknownIconHover": "Honestly, no idea how this got here."
       }
     },
     "userAlerts": {

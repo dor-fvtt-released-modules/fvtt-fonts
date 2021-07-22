@@ -113,6 +113,17 @@ export function gameSystemDetails(id = game.system.id) {
 
 // Just for fun. Gets one of ten random panagrams to use as the preview alphabet.
 export function panagramShuffler() {
-    const shuffle = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-    return loc('settings', 'manageFontsMenu', `panagrams.panagram-${shuffle}`);
+    const panagramCount = Number(loc('mainSettings', 'panagrams', 'panagramCount'));
+    const shuffle = Math.floor(Math.random() * (panagramCount - 1 + 1) + 1);
+    return loc('mainSettings', 'panagrams', `panagram-${shuffle}`);
+}
+
+/* Randomize array in-place using Durstenfeld shuffle algorithm */
+export function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }

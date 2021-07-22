@@ -1,5 +1,5 @@
 import * as constants from '../constants.js';
-import PreviewFontsLogic from './preview-fonts-logic.js';
+import FontPreviewerLogic from './font-previewer-logic.js';
 import AddFontLogic from './add-font-logic.js';
 import {
     gameSystemPackAvailable,
@@ -35,9 +35,11 @@ export class FvttFontsMainSettingsForm extends FormApplication {
     getData(options) {
         let data = {};
 
-        const enabledFonts = { enabledFonts: CONFIG.fontFamilies };
-        // { enabledFonts: PreviewFontsLogic.assembleEnabledFonts(),};
-        mergeObject(data, enabledFonts);
+        const fontPreviewerData = {
+            enabledFonts: CONFIG.fontFamilies,
+            panagramBlob: FontPreviewerLogic.panagramCombiner(),
+        };
+        mergeObject(data, fontPreviewerData);
 
         const miscConstants = {
             locPrefix: `${constants.moduleName}.mainSettings.`,
