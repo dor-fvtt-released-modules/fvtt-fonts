@@ -36,6 +36,7 @@
     ],
     "bugs": "https://github.com/dor-fvtt-released-modules/fvtt-fonts/issues",
     "flags": {
-        "allowBugReporter": true
+        "allowBugReporter": true,
+        "categories": ["Tools and Controls"]
     }
 }
