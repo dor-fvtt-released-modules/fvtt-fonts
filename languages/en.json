@@ -18,7 +18,18 @@
 
       },
       "fontManagerTab": {
-
+        "title": "Font Manager",
+        "hint": "From here, installed fonts can be previewed and GM-added fonts can be removed.",
+        "sourceColumnName": "Source",
+        "fontFamilyColumnName": "Font",
+        "previewColumnName": "Preview",
+        "previewAlphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "foundryDefaultIconHover": "FoundryVTT Default Font",
+        "fvttFontsDefaultIconHover": "{title} - Default Font",
+        "gmIconHover": "{title} - Added by GM",
+        "gameSystemIconHover": "TODO",
+        "dungeondraftIconHover": "Dungeondraft Default Font",
+        "unknownIconHover": "Honestly, no idea how this got here."
       },
       "addFontTab": {
         "title": "Add a Font",
@@ -60,33 +71,6 @@
         "panagram-8": "Quick zephyrs blow, vexing daft Jim.",
         "panagram-9": "A wizard's job is to vex chumps quickly in fog.",
         "panagram-10": "By Jove, my quick study of lexicography won a prize!"
-      }
-    },
-
-    "settings": {
-      "addFontMenuButton": {
-        "label": "\uD83D\uDD8B Add Font"
-      },
-      "manageFontsMenuButton": {
-        "label": "\uD83D\uDCDC View & Manage Fonts"
-      },
-      "addFontMenu": {
-
-      },
-      "manageFontsMenu": {
-        "frameTitle": "\uD83D\uDCDC View & Manage Fonts",
-        "title": "View & Manage Fonts",
-        "hint": "From here, installed fonts can be previewed and GM-added fonts can be removed.",
-        "sourceColumnName": "Source",
-        "fontFamilyColumnName": "Font",
-        "previewColumnName": "Preview",
-        "previewAlphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        "foundryDefaultIconHover": "FoundryVTT Default Font",
-        "fvttFontsDefaultIconHover": "{title} - Default Font",
-        "gmIconHover": "{title} - Added by GM",
-        "gameSystemIconHover": "TODO",
-        "dungeondraftIconHover": "Dungeondraft Default Font",
-        "unknownIconHover": "Honestly, no idea how this got here."
       }
     },
     "userAlerts": {

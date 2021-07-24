@@ -1,4 +1,4 @@
-<form autocomplete="off" class="fvtt-fonts flexcol" >
+<form autocomplete="off" class="fvtt-fonts" >
   {{!The tabbed form nav. Requres tabs preperty in defaultOptions to function}}
   <nav class="sheet-tabs tabs" data-group="fvtt-fonts-main">
     <a class="item active" data-tab="fontManager"><i class="fas fa-font"></i> {{localize (concat locPrefix "mainSettingsFormFrame.fontManagerTabLabel")}}</a>
@@ -33,7 +33,7 @@
     </div>
   </section>
   <footer class="sheet-footer flexrow">
-    <button type="submit" name="close">
+    <button type="button" name="close-button">
       <i class="fas fa-door-closed"></i> {{localize (concat locPrefix "mainSettingsFormFrame.closeButtonTitle")}}
     </button>
     <button type="button" data-cancel name="resetDefaults">

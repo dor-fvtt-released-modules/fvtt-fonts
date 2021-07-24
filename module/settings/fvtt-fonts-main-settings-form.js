@@ -1,4 +1,5 @@
 import * as constants from '../constants.js';
+import FontManagerLogic from './font-manager-logic.js';
 import FontPreviewerLogic from './font-previewer-logic.js';
 import AddFontLogic from './add-font-logic.js';
 import {
@@ -9,8 +10,6 @@ import {
     settingGet,
     settingDetails,
     panagramShuffler,
-    isEmpty,
-    notify,
 } from '../utils.js';
 
 export class FvttFontsMainSettingsForm extends FormApplication {
@@ -28,7 +27,9 @@ export class FvttFontsMainSettingsForm extends FormApplication {
             height: 'auto',
             closeOnSubmit: false,
             submitOnChange: true,
-            tabs: [{ navSelector: '.tabs', contentSelector: '#config-tabs', initial: 'general' }],
+            tabs: [
+                { navSelector: '.tabs', contentSelector: '#config-tabs', initial: 'fontManager' },
+            ],
         });
     }
 
@@ -41,9 +42,14 @@ export class FvttFontsMainSettingsForm extends FormApplication {
         };
         mergeObject(data, fontPreviewerData);
 
+        const fontManagerData = {
+            previewAlphabet: panagramShuffler(),
+            fontFamilies: FontManagerLogic.assembleInstalledFonts(),
+        };
+        mergeObject(data, fontManagerData);
+
         const miscConstants = {
             locPrefix: `${constants.moduleName}.mainSettings.`,
-            previewAlphabet: panagramShuffler(),
         };
         mergeObject(data, miscConstants);
 
@@ -92,6 +98,12 @@ export class FvttFontsMainSettingsForm extends FormApplication {
             }
         });
         // End Add Font processing block
+
+        // Listen for 'Close' button
+        html.find("[name='close-button']").on('click', async (event) => {
+            this.close();
+        });
+        // End 'Close' button
     }
 
     async _updateObject(ev, formData) {

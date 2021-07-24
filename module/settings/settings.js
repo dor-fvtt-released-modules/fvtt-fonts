@@ -1,7 +1,6 @@
 import * as constants from '../constants.js';
 import { loc, gameSystemPackAvailable } from '../utils.js';
 import { FvttFontsMainSettingsForm } from './fvtt-fonts-main-settings-form.js';
-import { FvttFontsManageFonts } from './manage-fonts.js';
 
 // Register default settings
 export default function registerSettings() {
@@ -9,12 +8,6 @@ export default function registerSettings() {
     game.settings.registerMenu(constants.moduleName, 'mainSettingsForm', {
         label: loc('mainSettings', 'settingsButton', 'label'),
         type: FvttFontsMainSettingsForm,
-        restricted: true,
-    });
-    // Old menu TODO remove when deprecated
-    game.settings.registerMenu(constants.moduleName, 'manageFonts', {
-        label: loc('settings', 'manageFontsMenuButton', 'label'),
-        type: FvttFontsManageFonts,
         restricted: true,
     });
     // Stores fonts the GM has added to the system successfully

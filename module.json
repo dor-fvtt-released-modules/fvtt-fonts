@@ -17,7 +17,7 @@
     "dependencies": [],
     "conflicts": [],
     "esmodules": ["/module/init.js"],
-    "styles": ["/styles/fvtt-fonts.css"],
+    "styles": ["/styles/fvtt-fonts.css", "/styles/font-packs.css"],
     "languages": [
         {
             "lang": "en",

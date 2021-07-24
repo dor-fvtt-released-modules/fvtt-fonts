@@ -1,5 +1,4 @@
 // import FontsPolyglotHandler from '../other_modules/fonts-polyglot-handler.js';
-import * as constants from '../constants.js';
 import { loc, shuffleArray } from '../utils.js';
 
 export default class FontPreviewerLogic {
@@ -23,8 +22,6 @@ export default class FontPreviewerLogic {
         while (panagramArray.length) {
             p = panagramArray.shift();
             panagramBlob = panagramBlob + p + ' ';
-            console.log(panagramArray);
-            console.log(panagramBlob);
         }
         return panagramBlob;
     }
