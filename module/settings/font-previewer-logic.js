@@ -2,6 +2,10 @@
 import { loc, shuffleArray } from '../utils.js';
 
 export default class FontPreviewerLogic {
+    static getEnabledFonts() {
+        return CONFIG.fontFamilies;
+    }
+
     static panagramCombiner() {
         const panagramCount = Number(loc('mainSettings', 'panagrams', 'panagramCount'));
         let panagramBlob = '';

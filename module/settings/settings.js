@@ -75,6 +75,21 @@ export default function registerSettings() {
             //onChange: () => FvttFonts.render({settings: true})
         });
     }
+    // Stores font packs added by other modules via the Fonts API
+    game.settings.register(constants.moduleName, 'fontsApiFontPacks', {
+        scope: 'world',
+        config: false,
+        default: {},
+        type: Object,
+    });
+    // Determines which fonts from packs passed via the Font API are enabled
+    game.settings.register(constants.moduleName, 'fontsApiFontsEnabled', {
+        scope: 'world',
+        config: false,
+        default: [],
+        type: Array,
+        //onChange: () => FvttFonts.render({settings: true})
+    });
     // Overrides the default alphabetical sort behavior when inserting fonts into CONFIG.fontFamilies
     game.settings.register(constants.moduleName, 'categorySort', {
         scope: 'world',

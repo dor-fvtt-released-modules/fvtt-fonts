@@ -90,11 +90,17 @@ export function setupHandlebarsHelpers() {
  */
 export function preloadTemplates() {
     let templates = [
-        'templates/FontPreviewerTab.hbs',
-        'templates/FontManagerTab.hbs',
-        'templates/AddFontTab.hbs',
-        'templates/FontPacksTab.hbs',
-        'templates/PreferencesTab.hbs',
+        'templates/main_settings_tabs/FontPreviewerTab.hbs',
+        'templates/main_settings_tabs/FontManagerTab.hbs',
+        'templates/main_settings_tabs/AddFontTab.hbs',
+        'templates/main_settings_tabs/FontPacksTab.hbs',
+        'templates/main_settings_tabs/PreferencesTab.hbs',
+        'templates/main_settings_tabs/font_manager_categories/FoundryDefaultFontsPack.hbs',
+        'templates/main_settings_tabs/font_manager_categories/FvttFontsDefaultFontsPack.hbs',
+        'templates/main_settings_tabs/font_manager_categories/GmAddedFontsPack.hbs',
+        'templates/main_settings_tabs/font_manager_categories/CurrentGameSystemFontsPack.hbs',
+        'templates/main_settings_tabs/font_manager_categories/DungeondraftDefaultFontsPack.hbs',
+        'templates/main_settings_tabs/font_manager_categories/FontsApiFontPacks.hbs',
     ];
 
     templates = templates.map((t) => `modules/${constants.moduleName}/${t}`);
@@ -126,4 +132,11 @@ export function shuffleArray(array) {
         array[i] = array[j];
         array[j] = temp;
     }
+}
+
+// Renders this on the next updateSetting hook call
+export function renderOnSettingChange(app) {
+    Hooks.once('updateSetting', () => {
+        app.render();
+    });
 }

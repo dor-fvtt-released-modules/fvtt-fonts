@@ -6,10 +6,12 @@ import {
     gameSystemPackAvailable,
     gameSystemDetails,
     loc,
+    debug,
     settingSet,
     settingGet,
     settingDetails,
     panagramShuffler,
+    renderOnSettingChange,
 } from '../utils.js';
 
 export class FvttFontsMainSettingsForm extends FormApplication {
@@ -23,7 +25,7 @@ export class FvttFontsMainSettingsForm extends FormApplication {
             title: loc('mainSettings', 'mainSettingsFormFrame', 'frameTitle'),
             template: `modules/${constants.moduleName}/templates/FvttFontsMainSettingsForm.hbs`,
             classes: ['sheet'],
-            width: 750,
+            width: 850,
             height: 'auto',
             closeOnSubmit: false,
             submitOnChange: true,
@@ -37,19 +39,21 @@ export class FvttFontsMainSettingsForm extends FormApplication {
         let data = {};
 
         const fontPreviewerData = {
-            enabledFonts: CONFIG.fontFamilies,
+            enabledFonts: FontPreviewerLogic.getEnabledFonts(),
+            completeAlphabet: loc('mainSettings', 'fontPreviewerTab', 'completeAlphabet'),
             panagramBlob: FontPreviewerLogic.panagramCombiner(),
         };
         mergeObject(data, fontPreviewerData);
 
         const fontManagerData = {
             previewAlphabet: panagramShuffler(),
-            fontFamilies: FontManagerLogic.assembleInstalledFonts(),
+            installedFonts: FontManagerLogic.assembleInstalledFonts(),
         };
         mergeObject(data, fontManagerData);
 
         const miscConstants = {
             locPrefix: `${constants.moduleName}.mainSettings.`,
+            moduleTitle: `${constants.moduleTitle}`,
         };
         mergeObject(data, miscConstants);
 
@@ -86,9 +90,9 @@ export class FvttFontsMainSettingsForm extends FormApplication {
                 let z = previewedFont;
                 this.style.font = `120% ${previewedFont}`; // TODO use a % per font
             }, previewedFont);
-            console.log(this.position);
+            debug(`Current position: ${this.position}`);
             this.setPosition({ height: 'auto' });
-            console.log(this.position);
+            debug(`New position: ${this.position}`);
         });
 
         // Listen for add font button
@@ -106,13 +110,12 @@ export class FvttFontsMainSettingsForm extends FormApplication {
         // End 'Close' button
     }
 
-    async _updateObject(ev, formData) {
+    _updateObject(ev, formData) {
         for (const [key, value] of Object.entries(formData)) {
             let details = settingDetails(key);
             if (details && details.type.name === 'Boolean') {
+                renderOnSettingChange(this);
                 settingSet(key, value);
-                // } else if (key === 'gmFontsAdded' && key) {
-                //  gmFonts = settingGet(key);
             }
         }
     }

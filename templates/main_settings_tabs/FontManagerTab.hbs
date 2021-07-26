@@ -1,0 +1,19 @@
+<div style="padding: 0 2.5%; display: flex;flex-direction: column;">
+  <label>{{localize (concat locPrefix "fontManagerTab.title")}}</label>
+  <p class="notes">{{localize (concat locPrefix "fontManagerTab.hint")}}</p>
+  <div class="font-packs-list">
+    {{! Foundry Default Fonts Collapsible Category}}
+    {{> "modules/fvtt-fonts/templates/main_settings_tabs/font_manager_categories/FoundryDefaultFontsPack.hbs"}}
+    {{! FVTT Fonts Default Fonts Collapsible Category}}
+    {{> "modules/fvtt-fonts/templates/main_settings_tabs/font_manager_categories/FvttFontsDefaultFontsPack.hbs"}}
+    {{! GM Added Fonts Collapsible Category}}
+    {{> "modules/fvtt-fonts/templates/main_settings_tabs/font_manager_categories/GmAddedFontsPack.hbs"}}
+    {{! Current Game System Fonts Collapsible Category}}
+    {{> "modules/fvtt-fonts/templates/main_settings_tabs/font_manager_categories/CurrentGameSystemFontsPack.hbs"}}
+    {{! Dungeondraft Default Fonts Collapsible Category}}
+    {{> "modules/fvtt-fonts/templates/main_settings_tabs/font_manager_categories/DungeondraftDefaultFontsPack.hbs"}}
+    {{! Fonts API Collapsible Categories}}
+    {{> "modules/fvtt-fonts/templates/main_settings_tabs/font_manager_categories/FontsApiFontPacks.hbs"}}
+  </div>
+  <hr style="width:80%">
+</div>

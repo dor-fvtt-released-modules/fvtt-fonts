@@ -15,7 +15,10 @@
         "resetDefaultsButtonTitle": "Reset Defaults"
       },
       "fontPreviewerTab": {
-
+        "title": "Font Previewer",
+        "hint": "Select a font to see a preview of its appearance. Fonts in the dropdown are in the same order they will be in drawings, journals, and map notes.",
+        "selectFont": "Select a font...",
+        "completeAlphabet": "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz"
       },
       "fontManagerTab": {
         "title": "Font Manager",
@@ -23,12 +26,21 @@
         "sourceColumnName": "Source",
         "fontFamilyColumnName": "Font",
         "previewColumnName": "Preview",
-        "previewAlphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "enabledColumnName": "Enabled?",
+        "removeColumnName": "Remove",
+        "foundryDefaultPackName": "FoundryVTT Default Font Pack",
         "foundryDefaultIconHover": "FoundryVTT Default Font",
+        "fvttFontsDefaultPackName": "{title} - Default Font Pack",
         "fvttFontsDefaultIconHover": "{title} - Default Font",
-        "gmIconHover": "{title} - Added by GM",
+        "gmAddedPackName": "{title} - Added by GM",
+        "gmAddedIconHover": "{title} - Added by GM",
+        "gameSystemPackName": "{system} Font Pack",
         "gameSystemIconHover": "TODO",
+        "dungeondraftPackName": "Dungeondraft Default Font Pack",
         "dungeondraftIconHover": "Dungeondraft Default Font",
+        "fontsApiPackName": "'{module}' Font Pack",
+        "fontsApiIconHover": "'{module}' Font",
+        "unknownPackName": "Fonts from Unknown Sources",
         "unknownIconHover": "Honestly, no idea how this got here."
       },
       "addFontTab": {
@@ -76,8 +88,9 @@
     "userAlerts": {
       "addFontSave": {
         "empty": "No font submitted, no change made.",
-        "invalid": "{newFont} was not found on Google Fonts.",
-        "added": "{newFont} added to Foundry."
+        "invalid": "'{newFont}' was not found on Google Fonts. Please verify that the font is available.",
+        "added": "'{newFont}' added to Foundry and enabled.",
+        "duplicate": "'{newFont}' is already available in the {existingFontPack}. Please enable it there instead."
       }
     }
   }

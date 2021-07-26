@@ -1,4 +1,4 @@
-<form autocomplete="off" class="fvtt-fonts" >
+<form id="fonts-main-settings" autocomplete="off" class="fvtt-fonts" >
   {{!The tabbed form nav. Requres tabs preperty in defaultOptions to function}}
   <nav class="sheet-tabs tabs" data-group="fvtt-fonts-main">
     <a class="item active" data-tab="fontManager"><i class="fas fa-font"></i> {{localize (concat locPrefix "mainSettingsFormFrame.fontManagerTabLabel")}}</a>
@@ -11,25 +11,23 @@
   <section id="config-tabs" class="content">
     {{! Font Manager tab}}
     <div class="tab active" data-tab="fontManager" data-group="fvtt-fonts-main">
-      <div class="settings-list">
-        {{> "modules/fvtt-fonts/templates/FontManagerTab.hbs"}}
-      </div>
+        {{> "modules/fvtt-fonts/templates/main_settings_tabs/FontManagerTab.hbs"}}
     </div>
     {{! Font Previewer tab}}
-    <div class="tab active" data-tab="fontPreviewer" data-group="fvtt-fonts-main">
-      {{> "modules/fvtt-fonts/templates/FontPreviewerTab.hbs"}}
+    <div class="tab" data-tab="fontPreviewer" data-group="fvtt-fonts-main">
+      {{> "modules/fvtt-fonts/templates/main_settings_tabs/FontPreviewerTab.hbs"}}
     </div>
     {{! Add Font tab}}
     <div class="tab" data-tab="addFont" data-group="fvtt-fonts-main" >
-      {{> "modules/fvtt-fonts/templates/AddFontTab.hbs"}}
+      {{> "modules/fvtt-fonts/templates/main_settings_tabs/AddFontTab.hbs"}}
     </div>
     {{! Font Packs tab}}
     <div class="tab" data-tab="fontPacks" data-group="fvtt-fonts-main">
-      {{> "modules/fvtt-fonts/templates/FontPacksTab.hbs"}}
+      {{> "modules/fvtt-fonts/templates/main_settings_tabs/FontPacksTab.hbs"}}
     </div>
     {{! Preferences tab}}
     <div class="tab" data-tab="preferences" data-group="fvtt-fonts-main">
-      {{> "modules/fvtt-fonts/templates/PreferencesTab.hbs"}}
+      {{> "modules/fvtt-fonts/templates/main_settings_tabs/PreferencesTab.hbs"}}
     </div>
   </section>
   <footer class="sheet-footer flexrow">

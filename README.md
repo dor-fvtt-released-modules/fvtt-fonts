@@ -14,9 +14,9 @@
 -   Move fonts on ManageFonts into sections
 -   Finish wiring up Add Fonts
 -   Build install/uninstall workflow
--   Polish manage fonts UI, change opening location
 -   Finish API
 -   Set all font %s and use them
+-   Test with popular UI mods
 
 ---
 

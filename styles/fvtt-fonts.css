@@ -13,28 +13,28 @@
 }
 
 /* IMPORTED */
-#client-settings form .form-group > label {
+#fonts-main-settings form .form-group > label {
     flex: 3;
 }
 
-#client-settings .tab[data-tab='modules'] .module-header::before {
+#fonts-main-settings .tab[data-tab='fontManager'] .pack-header::before {
     content: '⊟';
     cursor: pointer;
     padding-right: 4px;
 }
 
-#client-settings .tab[data-tab='modules'] .module-header.illandril-settings--collapse::before {
+#fonts-main-settings .tab[data-tab='fontManager'] .pack-header.font-pack--collapse::before {
     content: '⊞';
 }
 
-.illandril-settings--hidden {
+.font-pack--hidden {
     display: none !important;
 }
 
-#client-settings .tab[data-tab='modules'] .module-header:not(:first-child) {
+#fonts-main-settings .tab[data-tab='fontManager'] .pack-header:not(:first-child) {
     margin-top: 0.5em;
 }
 
-#client-settings .tab[data-tab='modules'] .form-group:not(:last-child) {
+#fonts-main-settings .tab[data-tab='fontManager'] .form-group:not(:last-child) {
     margin-bottom: 0.5em;
 }

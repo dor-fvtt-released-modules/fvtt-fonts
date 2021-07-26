@@ -1,0 +1,19 @@
+<div>
+  <label>{{localize (concat locPrefix "fontPreviewerTab.title")}}</label>
+  <p class="notes">{{localize (concat locPrefix "fontPreviewerTab.hint")}}</p>
+   <select class="previewed-font" name="previewed-font" data-dtype="String" style="flex: 1; text-transform: capitalize;">
+    {{#select enabledFonts}}
+    <option disabled selected value>{{localize (concat locPrefix "fontPreviewerTab.selectFont")}}</option>
+      {{#each enabledFonts as | font |}}
+        <option value="{{font}}">{{font}}</option>
+      {{/each}}
+    {{/select}}
+  </select>
+  <hr style="width:60%">
+  <div class="font-preview-text"; style="font: 0% Arial;">
+    <p>{{completeAlphabet}}</p>
+      <hr style="width:40%">
+    <p>{{panagramBlob}}</p>
+  </div>
+  <hr style="width:60%">
+</div>
