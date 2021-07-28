@@ -6,13 +6,13 @@ import {
     whenAvailable,
     loadConfigFontFamilies,
 } from './utils.js';
-import registerSettings from './settings/settings.js';
+import registerSettings from './settings.js';
 import FvttFontsApi from './fvtt-fonts-api.js';
-import FontManagerLogic from './settings/font-manager-logic.js';
+import { controlFontPackCollapseGroups } from './main_settings_form/font-manager-tab-logic.js';
 import WebFontLoader from './web-font-loader.js';
 
 // Register settings enumerated in settings.js
-Hooks.once('init', () => {
+Hooks.once('init', async () => {
     WebFontLoader.loadWebFontApi();
     preloadTemplates();
     registerSettings();
@@ -21,7 +21,7 @@ Hooks.once('init', () => {
     whenAvailable('WebFont', function () {
         WebFontLoader.loadGoogleFonts(settingGet('gmAddedFontsEnabled'));
     });
-    loadConfigFontFamilies();
+    await loadConfigFontFamilies();
 });
 
 // Register with devMode module for debugging purposes
@@ -30,5 +30,5 @@ Hooks.once('devModeReady', ({ registerPackageDebugFlag }) => {
 });
 
 Hooks.on('renderFvttFontsMainSettingsForm', (app, html, options) => {
-    FontManagerLogic.controlFontPackCollapseGroups(app, html, options);
+    controlFontPackCollapseGroups(app, html, options);
 });

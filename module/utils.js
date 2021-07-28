@@ -30,7 +30,7 @@ export async function notify(
         permanent: options.permanent,
         localize: options.localize,
     });
-    log(locString, type);
+    await log(locString, type);
 }
 
 // Simplified debug logging
@@ -42,7 +42,7 @@ export async function debug(debugString, force = false) {
                 ?.api?.getPackageDebugValue(constants.moduleName);
 
             if (force || isDebugging) {
-                log(debugString, 'debug');
+                await log(debugString, 'debug');
             }
         } catch (e) {}
     }
@@ -60,7 +60,7 @@ export function isObject(variable) {
 
 // Waits for another JS to load before executing method
 export function whenAvailable(name, callback) {
-    var interval = 10; // ms
+    let interval = 10; // ms
     window.setTimeout(function () {
         if (window[name]) {
             callback(window[name]);
@@ -139,9 +139,9 @@ export function panagramShuffler() {
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 export function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }

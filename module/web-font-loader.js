@@ -1,5 +1,3 @@
-import AddFontLogic from './settings/add-font-logic.js';
-
 export default class WebFontLoader {
     static loadWebFontApi() {
         const script = $('<script defer>');
@@ -20,39 +18,27 @@ export default class WebFontLoader {
         WebFont.load(webFontConfig);
     }
 
-    static validateGoogleFont(font, originator = 'loadFont') {
+    static async validateGoogleFont(font) {
         // TODO Explore using WebFont for validation instead.
-        let validator = {};
         let url = `https://fonts.googleapis.com/css2?family=${font}`;
 
-        fetch(url, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-        })
-            .then(function (response) {
-                if (response.status === 200) {
-                    validator = { valid: true, responseCode: response.status, error: null }; // HTTP 200 = font exists
-                    WebFontLoader._returnValidator(font, validator, originator);
-                } else {
-                    validator = { valid: false, responseCode: response.status, error: null }; // Any other HTTP code - font doesn't exist
-                    WebFontLoader._returnValidator(font, validator, originator);
-                }
-            })
-            .catch(function (err) {
-                validator = { valid: false, responseCode: null, error: err }; // An error - usually CORS - means the font doesn't exist
-                WebFontLoader._returnValidator(font, validator, originator);
+        try {
+            let response = await fetch(url, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
             });
-    }
-
-    static _returnValidator(font, validator, originator) {
-        if (originator === 'addFont') {
-            AddFontLogic.processNewFont(font, validator, true);
-        } else if (originator === 'loadFont') {
-            // do things
+            if (response.status === 200) {
+                return await { valid: true, responseCode: response.status, error: null }; // HTTP 200 = font exists
+            } else {
+                return await { valid: false, responseCode: response.status, error: null }; // Any other HTTP code - font doesn't exist
+            }
+        } catch (err) {
+            return await { valid: false, responseCode: null, error: err }; // An error - usually CORS - means the font doesn't exist
         }
     }
+
     /*
     fontEl.on('load', () => {
       // Try to redraw drawings. If the font isn't loaded. Then wait 5 seconds and try again.

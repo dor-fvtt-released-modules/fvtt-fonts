@@ -1,7 +1,17 @@
 import * as constants from '../constants.js';
-import FontManagerLogic from './font-manager-logic.js';
-import FontPreviewerLogic from './font-previewer-logic.js';
-import AddFontLogic from './add-font-logic.js';
+import {
+    getFontManagerTabData,
+    assembleInstalledFonts,
+    removeFontListener,
+} from './font-manager-tab-logic.js';
+import {
+    getFontPreviewerTabData,
+    getEnabledFonts,
+    panagramCombiner,
+} from './font-previewer-tab-logic.js';
+import { processNewFont, checkForDuplicateFonts, addFontMessaging } from './add-font-tab-logic.js';
+
+import { getFontPacksTabData } from './font-packs-tab-logic.js';
 import {
     gameSystemPackAvailable,
     gameSystemDetails,
@@ -10,12 +20,12 @@ import {
     settingSet,
     settingGet,
     settingDetails,
-    panagramShuffler,
     isEmpty,
     loadConfigFontFamilies,
 } from '../utils.js';
+import { getPreferencesTabData } from './preferences-tab-logic.js';
 
-export class FvttFontsMainSettingsForm extends FormApplication {
+class FvttFontsMainSettingsForm extends FormApplication {
     constructor(object, options = {}) {
         super(object, options);
     }
@@ -39,32 +49,23 @@ export class FvttFontsMainSettingsForm extends FormApplication {
     getData(options) {
         let data = {};
 
-        const fontPreviewerData = {
-            enabledFonts: FontPreviewerLogic.getEnabledFonts(),
-            completeAlphabet: loc('mainSettings', 'fontPreviewerTab', 'completeAlphabet'),
-            panagramBlob: FontPreviewerLogic.panagramCombiner(),
-        };
-        mergeObject(data, fontPreviewerData);
-
-        const fontManagerData = {
-            previewAlphabet: panagramShuffler(),
-            installedFonts: FontManagerLogic.assembleInstalledFonts(),
-        };
-        mergeObject(data, fontManagerData);
-
         const miscConstants = {
             locPrefix: `${constants.moduleName}.mainSettings.`,
             moduleTitle: `${constants.moduleTitle}`,
         };
         mergeObject(data, miscConstants);
 
-        // Simple Boolean settings
-        const simpleBooleans = {
-            fvttFontsDefaultFontsVisible: settingGet('fvttFontsDefaultFontsVisible'),
-            dungeondraftFontsVisible: settingGet('dungeondraftFontsVisible'),
-            categorySort: settingGet('categorySort'),
-        };
-        mergeObject(data, simpleBooleans);
+        const fontManagerTabData = getFontManagerTabData();
+        mergeObject(data, fontManagerTabData);
+
+        const fontPreviewerTabData = getFontPreviewerTabData();
+        mergeObject(data, fontPreviewerTabData);
+
+        const fontPacksTabData = getFontPacksTabData();
+        mergeObject(data, fontPacksTabData);
+
+        const preferencesTabData = getPreferencesTabData();
+        mergeObject(data, preferencesTabData);
 
         // Game system settings
         if (gameSystemPackAvailable()) {
@@ -77,11 +78,11 @@ export class FvttFontsMainSettingsForm extends FormApplication {
             };
             mergeObject(data, gameSystemOptions);
         }
-
+        // The final object provided to the template
         return data;
     }
 
-    activateListeners(html) {
+    async activateListeners(html) {
         super.activateListeners(html);
         // Listen for font removal of GM Added Fonts on the Font Manager tab
         html.find("[name='remove-font-button']").on('click', async (event) => {
@@ -110,7 +111,6 @@ export class FvttFontsMainSettingsForm extends FormApplication {
         html.find('.previewed-font').on('change', async (event) => {
             const previewedFont = event.currentTarget.value; //font select's value
             html.find('.font-preview-text').each(function () {
-                let z = previewedFont;
                 this.style.font = `120% ${previewedFont}`; // TODO use a % per font
             }, previewedFont);
             debug(`Current position: ${this.position}`);
@@ -122,7 +122,7 @@ export class FvttFontsMainSettingsForm extends FormApplication {
         html.find("[name='add-font-button']").on('click', async (event) => {
             let newFont = html.find('input#gmAddedFonts')[0].value.trim();
             if (isEmpty(newFont)) {
-                AddFontLogic.messageEmptyFontSubmission();
+                await addFontMessaging('empty', 'warn');
             }
         });
         // End Add Font processing block
@@ -141,11 +141,30 @@ export class FvttFontsMainSettingsForm extends FormApplication {
                 await settingSet(key, value);
                 this.render();
             } else if (details && key === 'gmAddedFonts' && value) {
-                let app = this;
-                await AddFontLogic.processNewFont(value);
+                await processNewFont(value);
                 console.log('return here');
                 this.render(); // TODO solve this happening before changes have taken place.
             }
         }
     }
 }
+
+Object.assign(FvttFontsMainSettingsForm.prototype, {
+    getFontManagerTabData,
+    assembleInstalledFonts,
+    removeFontListener,
+});
+Object.assign(FvttFontsMainSettingsForm.prototype, {
+    getFontPreviewerTabData,
+    getEnabledFonts,
+    panagramCombiner,
+});
+Object.assign(FvttFontsMainSettingsForm.prototype, {
+    processNewFont,
+    checkForDuplicateFonts,
+    addFontMessaging,
+});
+Object.assign(FvttFontsMainSettingsForm.prototype, { getFontPacksTabData });
+Object.assign(FvttFontsMainSettingsForm.prototype, { getPreferencesTabData });
+
+export default FvttFontsMainSettingsForm;

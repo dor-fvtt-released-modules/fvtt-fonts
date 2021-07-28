@@ -1,6 +1,6 @@
-import * as constants from '../constants.js';
-import { loc, gameSystemPackAvailable } from '../utils.js';
-import { FvttFontsMainSettingsForm } from './fvtt-fonts-main-settings-form.js';
+import * as constants from './constants.js';
+import { loc, gameSystemPackAvailable, loadConfigFontFamilies } from './utils.js';
+import FvttFontsMainSettingsForm from './main_settings_form/fvtt-fonts-main-settings-form.js';
 
 // Register default settings
 export default function registerSettings() {
@@ -96,5 +96,6 @@ export default function registerSettings() {
         config: false,
         default: false,
         type: Boolean,
+        onChange: () => loadConfigFontFamilies(),
     });
 }
