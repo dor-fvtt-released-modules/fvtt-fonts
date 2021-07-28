@@ -71,8 +71,6 @@ export default class FontManagerLogic {
         for (const key of constants.foundryDefaultFonts) {
             foundryDefaultFontsCollection['foundryDefaultFonts'][key] = {
                 name: key,
-                installed: true, //TODO Replace with function to determine install status
-                removable: false, // Default Foundry VTT fonts cannot be removed.
                 sourceIconId: 'foundry-default-icon',
                 sourceIconPath: 'icons/fvtt.png',
                 sourceIconHoverText: loc(
@@ -91,8 +89,7 @@ export default class FontManagerLogic {
             for (const key of constants.fvttFontsDefaultFonts) {
                 fvttFontsDefaultFontsCollection['fvttFontsDefaultFonts'][key] = {
                     name: key,
-                    installed: true, //TODO Replace with function to determine install status
-                    removable: true, // Default Foundry VTT fonts cannot be removed. TODO implement removal lol
+                    enabled: false, //TODO Replace with function to determine install status
                     sourceIconId: 'fvtt-fonts-default-icon',
                     sourceIconPath: `/modules/${constants.moduleName}/icons/fvttFontsIcon.png`,
                     sourceIconHoverText: loc(
@@ -108,16 +105,16 @@ export default class FontManagerLogic {
 
         // Add GM-added fonts, if any have been added
         if (settingGet('gmAddedFonts').length > 0) {
+            let enabledGmAddedFonts = settingGet('gmAddedFontsEnabled');
             let gmAddedFontsCollection = {};
             gmAddedFontsCollection['gmAddedFonts'] = {};
             for (const key of settingGet('gmAddedFonts')) {
                 gmAddedFontsCollection['gmAddedFonts'][key] = {
                     name: key,
-                    installed: true, //TODO Replace with function to determine install status
-                    removable: true, // Default Foundry VTT fonts cannot be removed. TODO implement removal lol
+                    enabled: enabledGmAddedFonts.includes(key),
                     sourceIconId: 'gm-added-icon',
                     sourceIconPath: `/modules/${constants.moduleName}/icons/gmIcon.png`,
-                    sourceIconHoverText: loc('mainSettings', 'fontManagerTab', 'gmIconHover'),
+                    sourceIconHoverText: loc('mainSettings', 'fontManagerTab', 'gmAddedIconHover'),
                 };
             }
             mergeObject(assembledFonts, gmAddedFontsCollection);
@@ -131,8 +128,7 @@ export default class FontManagerLogic {
             for (const key of currentGameSystemDetails.fonts) {
                 currentGameSystemFontsCollection['currentGameSystemFonts'][key] = {
                     name: key,
-                    installed: true, // TODO Replace with function to determine install status
-                    removable: true, // TODO implement removal lol
+                    enabled: false, // TODO Replace with function to determine install status
                     sourceIconId: 'game-system-icon',
                     sourceIconPath: `/modules/${constants.moduleName}/icons/${currentGameSystemDetails.iconName}`,
                     sourceIconHoverText: `${loc(
@@ -152,8 +148,7 @@ export default class FontManagerLogic {
             for (const key of constants.dungeondraftDefaultFonts) {
                 dungeondraftDefaultFontsCollection['dungeondraftDefaultFonts'][key] = {
                     name: key,
-                    installed: true, //TODO Replace with function to determine install status
-                    removable: true, // Default Foundry VTT fonts cannot be removed. TODO implement removal lol
+                    enabled: false, //TODO Replace with function to determine install status
                     sourceIconId: 'dungeondraft-default-icon',
                     sourceIconPath: `/modules/${constants.moduleName}/icons/dungeondraftIcon.png`,
                     sourceIconHoverText: loc(

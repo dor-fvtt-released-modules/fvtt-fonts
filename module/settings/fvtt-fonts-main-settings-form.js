@@ -11,7 +11,8 @@ import {
     settingGet,
     settingDetails,
     panagramShuffler,
-    renderOnSettingChange,
+    isEmpty,
+    loadConfigFontFamilies,
 } from '../utils.js';
 
 export class FvttFontsMainSettingsForm extends FormApplication {
@@ -82,6 +83,28 @@ export class FvttFontsMainSettingsForm extends FormApplication {
 
     activateListeners(html) {
         super.activateListeners(html);
+        // Listen for font removal of GM Added Fonts on the Font Manager tab
+        html.find("[name='remove-font-button']").on('click', async (event) => {
+            const removedFont = event.currentTarget.attributes.data.value;
+            let gmAddedFonts = settingGet('gmAddedFonts');
+            let gmAddedFontsEnabled = settingGet('gmAddedFontsEnabled');
+
+            if (gmAddedFontsEnabled.includes(removedFont)) {
+                gmAddedFontsEnabled = gmAddedFontsEnabled.filter((font) => font !== removedFont);
+                gmAddedFontsEnabled.sort();
+                console.log(gmAddedFontsEnabled);
+                await settingSet('gmAddedFontsEnabled', gmAddedFontsEnabled);
+            }
+
+            if (gmAddedFonts.includes(removedFont)) {
+                gmAddedFonts = gmAddedFonts.filter((font) => font !== removedFont);
+                gmAddedFonts.sort();
+                console.log(gmAddedFonts);
+                await settingSet('gmAddedFonts', gmAddedFonts);
+                await loadConfigFontFamilies();
+                this.render(); // TODO solve this closing the collapsible
+            }
+        });
 
         // Listen for font change in Font Previewer
         html.find('.previewed-font').on('change', async (event) => {
@@ -96,26 +119,32 @@ export class FvttFontsMainSettingsForm extends FormApplication {
         });
 
         // Listen for add font button
-        html.find('button').on('click', async (event) => {
-            if (event.currentTarget?.dataset?.action === 'addFont') {
-                AddFontLogic.newFontSubmitted(html);
+        html.find("[name='add-font-button']").on('click', async (event) => {
+            let newFont = html.find('input#gmAddedFonts')[0].value.trim();
+            if (isEmpty(newFont)) {
+                AddFontLogic.messageEmptyFontSubmission();
             }
         });
         // End Add Font processing block
 
         // Listen for 'Close' button
-        html.find("[name='close-button']").on('click', async (event) => {
+        html.find("[name='close-button']").on('click', async () => {
             this.close();
         });
         // End 'Close' button
     }
 
-    _updateObject(ev, formData) {
+    async _updateObject(ev, formData) {
         for (const [key, value] of Object.entries(formData)) {
             let details = settingDetails(key);
-            if (details && details.type.name === 'Boolean') {
-                renderOnSettingChange(this);
-                settingSet(key, value);
+            if (details && details.type.name === 'Boolean' && settingGet(key) !== value) {
+                await settingSet(key, value);
+                this.render();
+            } else if (details && key === 'gmAddedFonts' && value) {
+                let app = this;
+                await AddFontLogic.processNewFont(value);
+                console.log('return here');
+                this.render(); // TODO solve this happening before changes have taken place.
             }
         }
     }

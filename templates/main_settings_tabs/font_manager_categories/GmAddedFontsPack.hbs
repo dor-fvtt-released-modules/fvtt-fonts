@@ -1,9 +1,9 @@
 {{#if installedFonts.gmAddedFonts}}
   <h2 class="pack-header font-pack--collapse::before" style="display: flex;flex-direction: row;">
     <div style="flex: 0 0 50px;">
-      <img id="gm-added-icon" style="border-width:0;" src="/modules/fvtt-fonts/icons/gmIcon.png" height="20px" title="{{localize (concat locPrefix "fontManagerTab.gmAddedPackName") title=moduleTitle}}"/>
+      <img id="gm-added-icon" style="border-width:0;" src="/modules/fvtt-fonts/icons/gmIcon.png" height="20px" title="{{localize (concat locPrefix "fontManagerTab.gmAddedPackName")}}"/>
     </div>
-    {{localize (concat locPrefix "fontManagerTab.gmAddedPackName") title=moduleTitle}}
+    {{localize (concat locPrefix "fontManagerTab.gmAddedPackName")}}
   </h2>
   <div class="form-group submenu">
     <ul class="font-pack" style="list-style: none;">
@@ -22,8 +22,8 @@
                                             title="{{font.sourceIconHoverText}}"/></div>
           <div style="flex: 0 0 150px; text-transform: capitalize;">{{font.name}}</div>
           <div style="flex: 0 0 450px; font: 120% {{font.name}};">{{@root.previewAlphabet}}</div>
-          <input type="checkbox" style="flex: 0 0 70px;" {{checked}} disabled="disabled" />
-          <button type="button" style="flex: 0 0 30px; height: 30px;" disabled="disabled" >
+          <input type="checkbox" style="flex: 0 0 70px;" {{checked font.enabled}} disabled="disabled" />
+          <button type="button" name="remove-font-button" data="{{font.name}}"style="flex: 0 0 30px; height: 30px;"  >
             <i class="fas fa-trash"></i>
           </button>
         </li>

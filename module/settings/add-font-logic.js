@@ -1,71 +1,81 @@
 import * as constants from '../constants.js';
 import {
     notify,
-    isEmpty,
     debug,
     settingGet,
     settingSet,
     gameSystemPackAvailable,
     gameSystemDetails,
     loc,
+    loadConfigFontFamilies,
 } from '../utils.js';
-import GoogleFontLoader from '../google-font-loader.js';
+import WebFontLoader from '../web-font-loader.js';
+import { FvttFontsMainSettingsForm } from './fvtt-fonts-main-settings-form.js';
 
 export default class AddFontLogic {
-    // Called when the 'Add Font' button is pressed on the Add Font tab of the Main Settings Form.
-    static newFontSubmitted(html) {
-        const newFont = html.find('input#gmAddedFonts')[0].value.trim();
-        if (isEmpty(newFont)) {
-            notify({ locDomain: 'userAlerts', locSection: 'addFontSave', locKey: 'empty' }, 'warn');
-            return;
-        }
-        AddFontLogic.processNewFont(newFont);
-    }
-
     // Receives added fonts and validates that they exist in the Google Fonts API. If they don't the result will be a CORS error.
     static async processNewFont(newFont, validator = null, dupesChecked = false) {
+        newFont = newFont.trim();
+
         // Check for duplicate fonts if they haven't been checked for this font already
         if (!dupesChecked) {
-            const dupeCheck = AddFontLogic._checkForDuplicates(newFont);
+            const dupeCheck = await AddFontLogic._checkForDuplicates(newFont);
             if (dupeCheck.dupe) {
-                AddFontLogic._messageDuplicateFont(newFont, dupeCheck.dupePack);
+                await AddFontLogic._messageDuplicateFont(newFont, dupeCheck.dupePack);
                 return;
             }
         }
 
         // Get validator if not present
         if (!validator) {
-            GoogleFontLoader.validateGoogleFont(newFont, 'addFont');
+            WebFontLoader.validateGoogleFont(newFont, 'addFont');
             return;
         }
 
         // If font didn't validate, message the rejection.
         if (!validator.valid) {
-            AddFontLogic._messageAddFailure(newFont, validator);
+            await AddFontLogic._messageAddFailure(newFont, validator);
             return;
         }
 
         // All checks have passed. Add and enable the font.
-        AddFontLogic._addAndEnableFont(newFont);
-    }
-
-    // Adds and enables a validated, non-duplicate font
-    static _addAndEnableFont(newFont) {
+        //await AddFontLogic._addAndEnableFont(newFont);
         let gmAddedFonts = settingGet('gmAddedFonts');
         gmAddedFonts.push(newFont);
         gmAddedFonts.sort();
-        settingSet('gmAddedFonts', gmAddedFonts);
+        await settingSet('gmAddedFonts', gmAddedFonts);
 
         let gmAddedFontsEnabled = settingGet('gmAddedFontsEnabled');
         gmAddedFontsEnabled.push(newFont);
         gmAddedFontsEnabled.sort();
-        settingSet('gmAddedFontsEnabled', gmAddedFontsEnabled);
+        await settingSet('gmAddedFontsEnabled', gmAddedFontsEnabled);
 
-        AddFontLogic._messageAddSuccess(newFont);
+        await loadConfigFontFamilies();
+
+        await WebFontLoader.loadGoogleFonts([newFont]);
+
+        await AddFontLogic._messageAddSuccess(newFont);
+    }
+
+    // Adds and enables a validated, non-duplicate font
+    static async _addAndEnableFont(newFont) {
+        let gmAddedFonts = settingGet('gmAddedFonts');
+        gmAddedFonts.push(newFont);
+        gmAddedFonts.sort();
+        await settingSet('gmAddedFonts', gmAddedFonts);
+
+        let gmAddedFontsEnabled = settingGet('gmAddedFontsEnabled');
+        gmAddedFontsEnabled.push(newFont);
+        gmAddedFontsEnabled.sort();
+        await settingSet('gmAddedFontsEnabled', gmAddedFontsEnabled);
+
+        WebFontLoader.loadGoogleFonts([newFont]);
+
+        await AddFontLogic._messageAddSuccess(newFont);
     }
 
     // Prevents duplicate fonts from being added by checking submissions against existing font packs
-    static _checkForDuplicates(newFont) {
+    static async _checkForDuplicates(newFont) {
         let dupeCheck = { dupe: false, dupePack: '' };
         let dupePack = '';
 
@@ -117,8 +127,12 @@ export default class AddFontLogic {
         return dupeCheck;
     }
 
+    static async messageEmptyFontSubmission() {
+        notify({ locDomain: 'userAlerts', locSection: 'addFontSave', locKey: 'empty' }, 'warn');
+    }
+
     // Handles messaging the user when a submitted font is rejected
-    static _messageAddFailure(newFont, validator) {
+    static async _messageAddFailure(newFont, validator) {
         notify({ locDomain: 'userAlerts', locSection: 'addFontSave', locKey: 'invalid' }, 'error', {
             newFont: `${newFont}`,
         });
@@ -126,7 +140,7 @@ export default class AddFontLogic {
     }
 
     // Handles messaging the user when a submitted font is a dupe
-    static _messageDuplicateFont(newFont, dupePack) {
+    static async _messageDuplicateFont(newFont, dupePack) {
         notify(
             { locDomain: 'userAlerts', locSection: 'addFontSave', locKey: 'duplicate' },
             'warn',
@@ -137,7 +151,7 @@ export default class AddFontLogic {
         );
     }
 
-    static _messageAddSuccess(newFont) {
+    static async _messageAddSuccess(newFont) {
         notify({ locDomain: 'userAlerts', locSection: 'addFontSave', locKey: 'added' }, 'info', {
             newFont: `${newFont}`,
         });

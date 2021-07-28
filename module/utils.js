@@ -6,7 +6,7 @@ export function loc(domain, section, key, locPlaceholders = {}) {
 }
 
 // Simplifies logging to the console
-export function log(logString, type = 'info') {
+export async function log(logString, type = 'info') {
     if (type === 'error') {
         console.error(`${constants.moduleTitle} | ${logString}`);
     } else if (type === 'warn') {
@@ -19,7 +19,7 @@ export function log(logString, type = 'info') {
 }
 
 // Simplifies showing a notification
-export function notify(
+export async function notify(
     locMap = {},
     type = 'info',
     locPlaceholders,
@@ -34,7 +34,7 @@ export function notify(
 }
 
 // Simplified debug logging
-export function debug(debugString, force = false) {
+export async function debug(debugString, force = false) {
     if (game.modules.get('_dev-mode')) {
         try {
             const isDebugging = game.modules
@@ -58,9 +58,21 @@ export function isObject(variable) {
     return Object.prototype.toString.call(variable) === '[object Object]';
 }
 
+// Waits for another JS to load before executing method
+export function whenAvailable(name, callback) {
+    var interval = 10; // ms
+    window.setTimeout(function () {
+        if (window[name]) {
+            callback(window[name]);
+        } else {
+            whenAvailable(name, callback);
+        }
+    }, interval);
+}
+
 // Simplifies setting settings
-export function settingSet(key, value) {
-    game.settings.set(constants.moduleName, key, value);
+export async function settingSet(key, value) {
+    await game.settings.set(constants.moduleName, key, value);
 }
 
 // Simplifies getting settings
@@ -96,8 +108,9 @@ export function preloadTemplates() {
         'templates/main_settings_tabs/FontPacksTab.hbs',
         'templates/main_settings_tabs/PreferencesTab.hbs',
         'templates/main_settings_tabs/font_manager_categories/FoundryDefaultFontsPack.hbs',
-        'templates/main_settings_tabs/font_manager_categories/FvttFontsDefaultFontsPack.hbs',
         'templates/main_settings_tabs/font_manager_categories/GmAddedFontsPack.hbs',
+        'templates/main_settings_tabs/font_manager_categories/GmLocalFontsPack.hbs',
+        'templates/main_settings_tabs/font_manager_categories/FvttFontsDefaultFontsPack.hbs',
         'templates/main_settings_tabs/font_manager_categories/CurrentGameSystemFontsPack.hbs',
         'templates/main_settings_tabs/font_manager_categories/DungeondraftDefaultFontsPack.hbs',
         'templates/main_settings_tabs/font_manager_categories/FontsApiFontPacks.hbs',
@@ -134,9 +147,23 @@ export function shuffleArray(array) {
     }
 }
 
-// Renders this on the next updateSetting hook call
-export function renderOnSettingChange(app) {
-    Hooks.once('updateSetting', () => {
-        app.render();
-    });
+export async function loadConfigFontFamilies() {
+    let enabledFontArray = [];
+    enabledFontArray = enabledFontArray.concat(
+        constants.foundryDefaultFonts,
+        settingGet('gmAddedFontsEnabled'),
+        settingGet('fvttFontsDefaultFontsEnabled'),
+        settingGet('dungeondraftFontsEnabled'),
+    );
+
+    if (gameSystemPackAvailable()) {
+        enabledFontArray.concat(settingGet('gameSystemFontsEnabled'));
+    }
+
+    enabledFontArray.concat(settingGet('fontsApiFontsEnabled'));
+
+    if (!settingGet('categorySort')) {
+        enabledFontArray.sort();
+    }
+    CONFIG.fontFamilies = enabledFontArray;
 }

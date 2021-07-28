@@ -1,7 +1,27 @@
 import AddFontLogic from './settings/add-font-logic.js';
 
-export default class GoogleFontLoader {
+export default class WebFontLoader {
+    static loadWebFontApi() {
+        const script = $('<script defer>');
+        script.attr('src', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+        $('head').append(script);
+    }
+
+    static async loadGoogleFonts(fontArray) {
+        let webFontConfig = {
+            google: {
+                families: fontArray,
+            },
+            timeout: 2000, // Set the timeout to two seconds
+        };
+
+        // TODO - Explore using WebFont event callbacks
+
+        WebFont.load(webFontConfig);
+    }
+
     static validateGoogleFont(font, originator = 'loadFont') {
+        // TODO Explore using WebFont for validation instead.
         let validator = {};
         let url = `https://fonts.googleapis.com/css2?family=${font}`;
 
@@ -14,15 +34,15 @@ export default class GoogleFontLoader {
             .then(function (response) {
                 if (response.status === 200) {
                     validator = { valid: true, responseCode: response.status, error: null }; // HTTP 200 = font exists
-                    GoogleFontLoader._returnValidator(font, validator, originator);
+                    WebFontLoader._returnValidator(font, validator, originator);
                 } else {
                     validator = { valid: false, responseCode: response.status, error: null }; // Any other HTTP code - font doesn't exist
-                    GoogleFontLoader._returnValidator(font, validator, originator);
+                    WebFontLoader._returnValidator(font, validator, originator);
                 }
             })
             .catch(function (err) {
                 validator = { valid: false, responseCode: null, error: err }; // An error - usually CORS - means the font doesn't exist
-                GoogleFontLoader._returnValidator(font, validator, originator);
+                WebFontLoader._returnValidator(font, validator, originator);
             });
     }
 
@@ -33,27 +53,7 @@ export default class GoogleFontLoader {
             // do things
         }
     }
-    /*   static render(options = {settings: false}) {
-    let fontFamilies = game.settings.get(constants.moduleName, 'tempFontSetting');
-
-    fontFamilies.forEach(f => {
-      if (CONFIG.fontFamilies.includes(f)) return;
-      CONFIG.fontFamilies.push(f);
-    });
-
-    fonts = fontFamilies.map(f => {
-      f = f.replace(' ', '+');
-      f = "family=" + f;
-      return f;
-    }).join('&');
-
-    $('#fcf').remove();
-    const fontEl = $('<link id="fcf">');
-    fontEl.attr('rel', `stylesheet`);
-    fontEl.attr('type', `text/css`);
-    fontEl.attr('media', `all`);
-    fontEl.attr('href', `https://fonts.googleapis.com/css2?${fonts}&display=swap`);
-    $('head').append(fontEl);
+    /*
     fontEl.on('load', () => {
       // Try to redraw drawings. If the font isn't loaded. Then wait 5 seconds and try again.
       this.drawDrawings();

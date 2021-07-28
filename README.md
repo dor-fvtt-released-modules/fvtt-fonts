@@ -60,5 +60,6 @@ If you are interested in translating 📜 Fonts, make a new Pull Request with yo
 ## Acknowledgments
 
 -   Thanks to
+-   Tidy Module Settings, Polyglot, Dice So Nice, Forien Custom Fonts
 
 ## License
