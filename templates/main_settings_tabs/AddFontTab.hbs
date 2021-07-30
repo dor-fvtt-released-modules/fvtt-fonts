@@ -5,11 +5,27 @@
   </div>
   <hr>
   <div class="form-group-stacked">
-    <input type="text" name="gmAddedFonts" id="gmAddedFonts" value="{{value}}">
-    <p class="notes">{{localize (concat locPrefix "addFontTab.inputHint")}}</p>
+    <input type="text" name="gmAddFontInput" id="gmAddFontInput" value="{{value}}">
+    <p class="notes">{{localize (concat locPrefix "addFontTab.inputLabel")}}</p>
   </div>
-  <button type="button" name="add-font-button" data-action="addFont">
-    <i class="fas fa-plus"></i> {{localize (concat locPrefix "addFontTab.addButtonTitle")}}
-  </button>
+  <div class="font-preview-text--hidden"; id="add-font-preview-text" style="font: 0% Arial;">
+    <hr style="width:60%">
+    <p>{{completeAlphabet}}</p>
+    <hr style="width:40%">
+    <p>{{panagramBlob}}</p>
+    <hr style="width:40%">
+  </div>
+  <label class="font-preview-text--hidden" id="add-font-preview-label" >{{localize (concat locPrefix "addFontTab.previewLabel")}}</label>
   <hr style="width:80%">
+  <div class="flexrow">
+    <button type="button" class="flex1 add-font-tab-button" name="checkFont" id="check-font-button">
+      <i class="fas fa-search-plus"></i> {{localize (concat locPrefix "addFontTab.checkButtonTitle")}}
+    </button>
+    <button type="button" class="flex1 add-font-tab-button--hidden" name="addFont" id="add-font-button" data-action="addFont">
+      <i class="fas fa-plus"></i> {{localize (concat locPrefix "addFontTab.addButtonTitle")}}
+    </button>
+    <button type="button" class="flex1 add-font-tab-button--hidden" name="cancelAddFont" id="cancel-add-font-button">
+      <i class="fas fa-remove-format"></i> {{localize (concat locPrefix "addFontTab.cancelButtonTitle")}}
+    </button>
+  </div>
 </div>

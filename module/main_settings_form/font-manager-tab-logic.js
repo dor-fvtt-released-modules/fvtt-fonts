@@ -16,66 +16,6 @@ export function getFontManagerTabData() {
     };
 }
 
-export function controlFontPackCollapseGroups(app, html, options) {
-    /* This entire function is credit toJoe Spandrusyszyn (illandril) and his 'Tidy Module Settings' module. Thank you!
-     */
-
-    const cssCollapse = 'font-pack--collapse';
-    const cssHidden = 'font-pack--hidden';
-    const cssPackHeader = 'pack-header';
-
-    const fontManagerTab = app.form.querySelector('.tab[data-tab="fontManager"]');
-    const fontManagerTabNav = app.form.querySelector('.tabs > .item[data-tab="fontManager"]');
-
-    const expandCollapseGroup = (header, optForceSame) => {
-        const wasCollapsed = header.classList.contains(cssCollapse);
-        const expand = optForceSame ? !wasCollapsed : wasCollapsed;
-        if (expand) {
-            header.classList.remove(cssCollapse);
-        } else {
-            header.classList.add(cssCollapse);
-        }
-
-        let sibling = header.nextElementSibling;
-        while (sibling && !sibling.classList.contains(cssPackHeader)) {
-            if (expand) {
-                sibling.classList.remove(cssHidden);
-            } else {
-                sibling.classList.add(cssHidden);
-            }
-            sibling = sibling.nextElementSibling;
-        }
-    };
-
-    const resetSettingsWindowSize = () => {
-        // We shouldn't need to lookup and reset the scrollTop... and don't in the standard foundry,
-        // but the CSS applied by some skins (including Ernie's Modern UI) causes some browsers to
-        // forget where the settings dialog was scrolled to when the height is recalculated.
-        const scrollRegion = app.form.querySelector('.font-packs-list');
-        const initialScrollTop = scrollRegion.scrollTop;
-        app.setPosition({ height: 'auto' });
-        scrollRegion.scrollTop = initialScrollTop;
-    };
-
-    const fontPacksList = fontManagerTab.querySelector('.font-packs-list');
-
-    const headers = fontPacksList.querySelectorAll(`.${cssPackHeader}`);
-    for (const header of headers) {
-        header.addEventListener(
-            'click',
-            () => {
-                expandCollapseGroup(header);
-                resetSettingsWindowSize();
-            },
-            false,
-        );
-        expandCollapseGroup(header);
-    }
-    if (fontManagerTabNav.classList.contains('active')) {
-        resetSettingsWindowSize();
-    }
-}
-
 export function assembleInstalledFonts() {
     let assembledFonts = {};
 
@@ -91,27 +31,6 @@ export function assembleInstalledFonts() {
         };
     }
     mergeObject(assembledFonts, foundryDefaultFontsCollection);
-
-    // Add FVTT Fonts default fonts
-    if (settingGet('fvttFontsDefaultFontsVisible')) {
-        let fvttFontsDefaultFontsCollection = {};
-        fvttFontsDefaultFontsCollection['fvttFontsDefaultFonts'] = {};
-        for (const key of constants.fvttFontsDefaultFonts) {
-            fvttFontsDefaultFontsCollection['fvttFontsDefaultFonts'][key] = {
-                name: key,
-                enabled: false, //TODO Replace with function to determine install status
-                sourceIconId: 'fvtt-fonts-default-icon',
-                sourceIconPath: `/modules/${constants.moduleName}/icons/fvttFontsIcon.png`,
-                sourceIconHoverText: loc(
-                    'mainSettings',
-                    'fontManagerTab',
-                    'fvttFontsDefaultIconHover',
-                    { title: constants.moduleTitle },
-                ),
-            };
-        }
-        mergeObject(assembledFonts, fvttFontsDefaultFontsCollection);
-    }
 
     // Add GM-added fonts, if any have been added
     if (settingGet('gmAddedFonts').length > 0) {
@@ -130,22 +49,45 @@ export function assembleInstalledFonts() {
         mergeObject(assembledFonts, gmAddedFontsCollection);
     }
 
+    // Add FVTT Fonts default fonts
+    if (settingGet('fvttFontsDefaultFontsVisible')) {
+        let enabledFvttFontsDefaultFonts = settingGet('fvttFontsDefaultFontsEnabled');
+        let fvttFontsDefaultFontsCollection = {};
+        fvttFontsDefaultFontsCollection['fvttFontsDefaultFonts'] = {};
+        for (const key of constants.fvttFontsDefaultFonts) {
+            fvttFontsDefaultFontsCollection['fvttFontsDefaultFonts'][key] = {
+                name: key,
+                enabled: enabledFvttFontsDefaultFonts.includes(key),
+                sourceIconId: 'fvtt-fonts-default-icon',
+                sourceIconPath: `/modules/${constants.moduleName}/icons/fvttFontsIcon.png`,
+                sourceIconHoverText: loc(
+                    'mainSettings',
+                    'fontManagerTab',
+                    'fvttFontsDefaultIconHover',
+                    { title: constants.moduleTitle },
+                ),
+            };
+        }
+        mergeObject(assembledFonts, fvttFontsDefaultFontsCollection);
+    }
+
     // Add Game system fonts if enabled in Settings
     if (gameSystemPackAvailable() && settingGet('gameSystemFontsVisible')) {
+        let enabledGameSystemFonts = settingGet('gameSystemFontsEnabled');
         let currentGameSystemDetails = gameSystemDetails();
         let currentGameSystemFontsCollection = {};
         currentGameSystemFontsCollection['currentGameSystemFonts'] = {};
         for (const key of currentGameSystemDetails.fonts) {
             currentGameSystemFontsCollection['currentGameSystemFonts'][key] = {
                 name: key,
-                enabled: false, // TODO Replace with function to determine install status
+                enabled: enabledGameSystemFonts.includes(key),
                 sourceIconId: 'game-system-icon',
                 sourceIconPath: `/modules/${constants.moduleName}/icons/${currentGameSystemDetails.iconName}`,
                 sourceIconHoverText: `${loc(
                     'mainSettings',
                     'fontManagerTab',
                     'gameSystemIconHover',
-                )} - ${game.system.data.title}`,
+                )}`,
             };
         }
         mergeObject(assembledFonts, currentGameSystemFontsCollection);
@@ -153,41 +95,96 @@ export function assembleInstalledFonts() {
 
     // Add Dungeondraft default fonts if enabled in Settings
     if (settingGet('dungeondraftFontsVisible')) {
-        let dungeondraftDefaultFontsCollection = {};
-        dungeondraftDefaultFontsCollection['dungeondraftDefaultFonts'] = {};
-        for (const key of constants.dungeondraftDefaultFonts) {
-            dungeondraftDefaultFontsCollection['dungeondraftDefaultFonts'][key] = {
+        let dungeondraftFonts = settingGet('dungeondraftFontsEnabled');
+        let dungeondraftFontsCollection = {};
+        dungeondraftFontsCollection['dungeondraftFonts'] = {};
+        for (const key of constants.dungeondraftFonts) {
+            dungeondraftFontsCollection['dungeondraftFonts'][key] = {
                 name: key,
-                enabled: false, //TODO Replace with function to determine install status
-                sourceIconId: 'dungeondraft-default-icon',
+                enabled: dungeondraftFonts.includes(key),
+                sourceIconId: 'dungeondraft-icon',
                 sourceIconPath: `/modules/${constants.moduleName}/icons/dungeondraftIcon.png`,
                 sourceIconHoverText: loc('mainSettings', 'fontManagerTab', 'dungeondraftIconHover'),
             };
         }
-        mergeObject(assembledFonts, dungeondraftDefaultFontsCollection);
+        mergeObject(assembledFonts, dungeondraftFontsCollection);
     }
 
     return assembledFonts;
 }
+
+// Listen for font removal of GM Added Fonts on the Font Manager tab
 export function removeFontListener(html) {
-    // Listen for font removal of GM Added Fonts on the Font Manager tab
-    html.find("[name='remove-font-button']").on('click', async (event) => {
-        const removedFont = event.currentTarget.attributes.data.value;
-        let gmAddedFonts = settingGet('gmAddedFonts');
-        let gmAddedFontsEnabled = settingGet('gmAddedFontsEnabled');
+    html.find("[name='removeFont']").on('click', async (event) => {
+        const deadFont = event.currentTarget.attributes.data.value;
+        const formData = {
+            removeFont: deadFont,
+        };
+        this._updateObject(event, formData);
+    });
+}
 
-        if (gmAddedFontsEnabled.includes(removedFont)) {
-            gmAddedFontsEnabled = gmAddedFontsEnabled.filter((font) => font !== removedFont);
-            gmAddedFontsEnabled.sort();
-            await settingSet('gmAddedFontsEnabled', gmAddedFontsEnabled);
+export function controlFontPackCollapseGroups(app, html, options) {
+    /* This entire function is credit toJoe Spandrusyszyn (illandril) and his 'Tidy Module Settings' module. Thank you!
+     */
+    const fontManagerTab = app.form.querySelector('.tab[data-tab="fontManager"]');
+    const fontManagerTabNav = app.form.querySelector('.tabs > .item[data-tab="fontManager"]');
+    const fontPacksList = fontManagerTab.querySelector('.font-packs-list');
+
+    const headers = fontPacksList.querySelectorAll(`.${constants.cssPackHeader}`);
+    for (const header of headers) {
+        header.addEventListener(
+            'click',
+            () => {
+                expandCollapseGroup(header);
+                resetFontManagerTabSize(app);
+            },
+            false,
+        );
+        expandCollapseGroup(header);
+    }
+    if (fontManagerTabNav.classList.contains('active')) {
+        resetFontManagerTabSize(app);
+    }
+}
+
+export function expandCollapseGroup(header, optForceSame) {
+    // Wrap in an if block in case the collapsible is destroyed (ie GM added fonts emptied) so classList can't be called
+    if (header) {
+        const wasCollapsed = header.classList.contains(constants.cssCollapse);
+        const expand = optForceSame ? !wasCollapsed : wasCollapsed;
+        if (expand) {
+            header.classList.remove(constants.cssCollapse);
+        } else {
+            header.classList.add(constants.cssCollapse);
         }
 
-        if (gmAddedFonts.includes(removedFont)) {
-            gmAddedFonts = gmAddedFonts.filter((font) => font !== removedFont);
-            gmAddedFonts.sort();
-            await settingSet('gmAddedFonts', gmAddedFonts);
-            await loadConfigFontFamilies();
-            this.render(); // TODO solve this closing the collapsible
+        let sibling = header.nextElementSibling;
+        while (sibling && !sibling.classList.contains(constants.cssPackHeader)) {
+            if (expand) {
+                sibling.classList.remove(constants.cssHidden);
+            } else {
+                sibling.classList.add(constants.cssHidden);
+            }
+            sibling = sibling.nextElementSibling;
         }
+    }
+}
+
+export function resetFontManagerTabSize(app) {
+    // We shouldn't need to lookup and reset the scrollTop... and don't in the standard foundry,
+    // but the CSS applied by some skins (including Ernie's Modern UI) causes some browsers to
+    // forget where the settings dialog was scrolled to when the height is recalculated.
+    const scrollRegion = app.form.querySelector('.font-packs-list');
+    const initialScrollTop = scrollRegion.scrollTop;
+    app.setPosition({ height: 'auto' });
+    scrollRegion.scrollTop = initialScrollTop;
+}
+
+export function renderWithoutCollapse(packName) {
+    Hooks.once('renderFvttFontsMainSettingsForm', (app) => {
+        let header = app.form.querySelector(`#${packName}Header`);
+        expandCollapseGroup(header);
+        resetFontManagerTabSize(app);
     });
 }

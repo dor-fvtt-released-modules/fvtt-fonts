@@ -3,24 +3,34 @@ import {
     getFontManagerTabData,
     assembleInstalledFonts,
     removeFontListener,
+    expandCollapseGroup,
+    resetFontManagerTabSize,
+    renderWithoutCollapse,
 } from './font-manager-tab-logic.js';
 import {
     getFontPreviewerTabData,
-    getEnabledFonts,
+    fontPreviewerPreviewListener,
     panagramCombiner,
 } from './font-previewer-tab-logic.js';
-import { processNewFont, checkForDuplicateFonts, addFontMessaging } from './add-font-tab-logic.js';
+import {
+    checkFontListener,
+    addFontListener,
+    inputListener,
+    cancelAddFontListener,
+    checkNewFont,
+    addNewFont,
+    checkForDuplicateFonts,
+    addFontMessaging,
+} from './add-font-tab-logic.js';
 
 import { getFontPacksTabData } from './font-packs-tab-logic.js';
 import {
     gameSystemPackAvailable,
     gameSystemDetails,
     loc,
-    debug,
     settingSet,
     settingGet,
     settingDetails,
-    isEmpty,
     loadConfigFontFamilies,
 } from '../utils.js';
 import { getPreferencesTabData } from './preferences-tab-logic.js';
@@ -82,68 +92,97 @@ class FvttFontsMainSettingsForm extends FormApplication {
         return data;
     }
 
+    // Override _onChangeInput to Avoid submitting 'Add Font' input box based only on it losing focus.
+    // Will still be submitted by 'Add Font' button
+    _onChangeInput(event) {
+        let targetName = event.target.name;
+        if (targetName === 'gmAddFontInput') {
+        } else {
+            super._onChangeInput(event);
+        }
+    }
+
     async activateListeners(html) {
         super.activateListeners(html);
         // Listen for font removal of GM Added Fonts on the Font Manager tab
-        html.find("[name='remove-font-button']").on('click', async (event) => {
-            const removedFont = event.currentTarget.attributes.data.value;
-            let gmAddedFonts = settingGet('gmAddedFonts');
-            let gmAddedFontsEnabled = settingGet('gmAddedFontsEnabled');
-
-            if (gmAddedFontsEnabled.includes(removedFont)) {
-                gmAddedFontsEnabled = gmAddedFontsEnabled.filter((font) => font !== removedFont);
-                gmAddedFontsEnabled.sort();
-                console.log(gmAddedFontsEnabled);
-                await settingSet('gmAddedFontsEnabled', gmAddedFontsEnabled);
-            }
-
-            if (gmAddedFonts.includes(removedFont)) {
-                gmAddedFonts = gmAddedFonts.filter((font) => font !== removedFont);
-                gmAddedFonts.sort();
-                console.log(gmAddedFonts);
-                await settingSet('gmAddedFonts', gmAddedFonts);
-                await loadConfigFontFamilies();
-                this.render(); // TODO solve this closing the collapsible
-            }
-        });
+        removeFontListener.call(this, html);
 
         // Listen for font change in Font Previewer
-        html.find('.previewed-font').on('change', async (event) => {
-            const previewedFont = event.currentTarget.value; //font select's value
-            html.find('.font-preview-text').each(function () {
-                this.style.font = `120% ${previewedFont}`; // TODO use a % per font
-            }, previewedFont);
-            debug(`Current position: ${this.position}`);
-            this.setPosition({ height: 'auto' });
-            debug(`New position: ${this.position}`);
-        });
+        fontPreviewerPreviewListener.call(this, html);
 
-        // Listen for add font button
-        html.find("[name='add-font-button']").on('click', async (event) => {
-            let newFont = html.find('input#gmAddedFonts')[0].value.trim();
-            if (isEmpty(newFont)) {
-                await addFontMessaging('empty', 'warn');
-            }
-        });
-        // End Add Font processing block
+        // Listen for an empty font submission
+        checkFontListener.call(this, html);
+        inputListener.call(this, html);
+        addFontListener.call(this, html);
+        cancelAddFontListener.call(this, html);
 
         // Listen for 'Close' button
         html.find("[name='close-button']").on('click', async () => {
             this.close();
         });
-        // End 'Close' button
     }
 
     async _updateObject(ev, formData) {
         for (const [key, value] of Object.entries(formData)) {
             let details = settingDetails(key);
+
+            // If a simple Boolean setting was changed, flips it.
             if (details && details.type.name === 'Boolean' && settingGet(key) !== value) {
                 await settingSet(key, value);
+                await loadConfigFontFamilies();
                 this.render();
-            } else if (details && key === 'gmAddedFonts' && value) {
-                await processNewFont(value);
-                console.log('return here');
-                this.render(); // TODO solve this happening before changes have taken place.
+            }
+
+            // If a new font was added, add it.
+            if (key === 'gmAddFontInput' && value) {
+                await addNewFont(value);
+                this.render();
+            }
+
+            if (key === 'removeFont') {
+                let gmAddedFonts = settingGet('gmAddedFonts');
+                let gmAddedFontsEnabled = settingGet('gmAddedFontsEnabled');
+
+                if (gmAddedFontsEnabled.includes(value)) {
+                    gmAddedFontsEnabled = gmAddedFontsEnabled.filter((font) => font !== value);
+                    gmAddedFontsEnabled.sort();
+                    await settingSet('gmAddedFontsEnabled', gmAddedFontsEnabled);
+                }
+
+                if (gmAddedFonts.includes(value)) {
+                    gmAddedFonts = gmAddedFonts.filter((font) => font !== value);
+                    gmAddedFonts.sort();
+                    await settingSet('gmAddedFonts', gmAddedFonts);
+                    await loadConfigFontFamilies();
+                    await renderWithoutCollapse('gmAddedFonts');
+                    this.render();
+                }
+            }
+
+            // If a font was enabled or disabled in the Font Manager, flip it.
+            if (key === 'fontEnableDisable') {
+                const change = ev.target.id.split('--');
+                const pack = change[0];
+                const changedFont = change[1];
+                if (changedFont) {
+                    const currentState = settingGet(pack);
+                    const included = currentState.includes(changedFont);
+                    if (included) {
+                        let newState = currentState.filter((font) => font !== changedFont);
+                        await settingSet(pack, newState);
+                        await loadConfigFontFamilies();
+                        await renderWithoutCollapse(pack.replace('Enabled', ''));
+                        this.render();
+                    } else if (!included) {
+                        currentState.push(changedFont);
+                        let newState = currentState;
+                        newState.sort();
+                        await settingSet(pack, newState);
+                        await loadConfigFontFamilies();
+                        await renderWithoutCollapse(pack.replace('Enabled', ''));
+                        this.render();
+                    }
+                }
             }
         }
     }
@@ -153,14 +192,22 @@ Object.assign(FvttFontsMainSettingsForm.prototype, {
     getFontManagerTabData,
     assembleInstalledFonts,
     removeFontListener,
+    expandCollapseGroup,
+    resetFontManagerTabSize,
+    renderWithoutCollapse,
 });
 Object.assign(FvttFontsMainSettingsForm.prototype, {
     getFontPreviewerTabData,
-    getEnabledFonts,
+    fontPreviewerPreviewListener,
     panagramCombiner,
 });
 Object.assign(FvttFontsMainSettingsForm.prototype, {
-    processNewFont,
+    checkFontListener,
+    inputListener,
+    addFontListener,
+    cancelAddFontListener,
+    checkNewFont,
+    addNewFont,
     checkForDuplicateFonts,
     addFontMessaging,
 });

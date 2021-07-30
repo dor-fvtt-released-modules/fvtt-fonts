@@ -95,6 +95,10 @@ export function setupHandlebarsHelpers() {
 
         return params.join('');
     });
+
+    Handlebars.registerHelper('isdefined', function (value) {
+        return value !== undefined;
+    });
 }
 
 /**
@@ -152,18 +156,29 @@ export async function loadConfigFontFamilies() {
     enabledFontArray = enabledFontArray.concat(
         constants.foundryDefaultFonts,
         settingGet('gmAddedFontsEnabled'),
-        settingGet('fvttFontsDefaultFontsEnabled'),
-        settingGet('dungeondraftFontsEnabled'),
     );
 
-    if (gameSystemPackAvailable()) {
-        enabledFontArray.concat(settingGet('gameSystemFontsEnabled'));
+    if (settingGet('fvttFontsDefaultFontsVisible')) {
+        enabledFontArray = enabledFontArray.concat(settingGet('fvttFontsDefaultFontsEnabled'));
+    }
+    if (settingGet('dungeondraftFontsVisible')) {
+        enabledFontArray = enabledFontArray.concat(settingGet('dungeondraftFontsEnabled'));
     }
 
-    enabledFontArray.concat(settingGet('fontsApiFontsEnabled'));
+    if (gameSystemPackAvailable() && settingGet('gameSystemFontsVisible')) {
+        enabledFontArray = enabledFontArray.concat(settingGet('gameSystemFontsEnabled'));
+    }
+
+    //enabledFontArray.concat(settingGet('fontsApiFontsEnabled'));
 
     if (!settingGet('categorySort')) {
         enabledFontArray.sort();
     }
     CONFIG.fontFamilies = enabledFontArray;
+}
+
+export async function redrawDrawings() {
+    canvas?.drawings?.placeables
+        .filter((drawing) => drawing.data.type === 't')
+        .forEach((d) => d.draw());
 }

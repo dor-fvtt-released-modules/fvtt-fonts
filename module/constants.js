@@ -28,7 +28,7 @@ export const fvttFontsDefaultFonts = [
     'Trade Winds',
     'Unifraktur Cook',
 ];
-export const dungeondraftDefaultFonts = [
+export const dungeondraftFonts = [
     'Advent Pro',
     'Advent Pro Bold',
     'Aladin',
@@ -69,3 +69,7 @@ export const gameSystemFontPacks = {
         },
     },
 };
+
+export const cssCollapse = 'font-pack--collapse';
+export const cssHidden = 'font-pack--hidden';
+export const cssPackHeader = 'pack-header';

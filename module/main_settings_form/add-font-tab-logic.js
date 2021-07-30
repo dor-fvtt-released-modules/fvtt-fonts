@@ -1,31 +1,93 @@
 import * as constants from '../constants.js';
 import {
     notify,
-    debug,
     settingGet,
     settingSet,
     gameSystemPackAvailable,
     gameSystemDetails,
     loc,
     loadConfigFontFamilies,
+    isEmpty,
 } from '../utils.js';
 import WebFontLoader from '../web-font-loader.js';
 
-// Receives added fonts and validates that they exist in the Google Fonts API. If they don't the result will be a CORS error.
-export async function processNewFont(newFont) {
+export async function checkFontListener(html) {
+    html.find('button#check-font-button').on('click', async () => {
+        let textBox = html.find('input#gmAddFontInput');
+        let newFont = textBox[0].value.trim();
+        if (isEmpty(newFont)) {
+            await addFontMessaging('empty', 'warn');
+            return;
+        }
+        const valid = await checkNewFont(newFont);
+
+        let checkButton = await html.find('button#check-font-button')[0];
+        let addButton = await html.find('button#add-font-button')[0];
+        let cancelAddButton = await html.find('button#cancel-add-font-button')[0];
+        let previewText = await html.find('#add-font-preview-text')[0];
+        let previewLabel = await html.find('#add-font-preview-label')[0];
+
+        if (valid) {
+            // Disable text box editing
+            textBox.attr('disabled', 'disabled');
+
+            // Load new font from Google
+            await WebFontLoader.loadGoogleFonts([newFont]);
+
+            // Change check button property
+            checkButton.classList.replace('add-font-tab-button', 'add-font-tab-button--hidden');
+            // Change add button property
+            addButton.classList.replace('add-font-tab-button--hidden', 'add-font-tab-button');
+            // Change cancel button property
+            cancelAddButton.classList.replace('add-font-tab-button--hidden', 'add-font-tab-button');
+            // Reveal preview
+            previewLabel.classList.replace('font-preview-text--hidden', 'font-preview-text');
+            previewText.classList.replace('font-preview-text--hidden', 'font-preview-text');
+            previewText.style.font = `120% ${newFont}`;
+            this.setPosition({ height: 'auto' });
+        }
+    });
+}
+
+export async function inputListener(html) {
+    html.find('input#gmAddFontInput').on('keydown', async (event) => {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+        }
+    });
+}
+
+export async function addFontListener(html) {
+    html.find('#add-font-button').on('click', async (event) => {
+        const newFont = html.find('input#gmAddFontInput')[0].value.trim();
+        const formData = {
+            gmAddFontInput: newFont,
+        };
+        this._updateObject(event, formData);
+    });
+}
+
+export async function cancelAddFontListener(html) {
+    html.find('#cancel-add-font-button').on('click', async () => {
+        this.render();
+        //this.setPosition({ height: 'auto' });
+    });
+}
+
+export async function checkNewFont(newFont) {
     newFont = newFont.trim();
 
-    // Check for duplicate fonts if they haven't been checked for this font already
+    // Check for duplicate fonts
     const dupeCheck = await checkForDuplicateFonts(newFont);
     if (dupeCheck.dupe) {
-        await messageDuplicateFont(newFont, dupeCheck.dupePack);
         await addFontMessaging('duplicate', 'warn', {
             locPlaceholder: {
                 newFont: newFont,
                 existingFontPack: dupeCheck.dupePack,
             },
         });
-        return;
+        return false;
     }
 
     const validator = await WebFontLoader.validateGoogleFont(newFont);
@@ -36,8 +98,13 @@ export async function processNewFont(newFont) {
             responseCode: validator.responseCode,
             error: validator.error,
         });
-        return;
+        return false;
     }
+    return true;
+}
+
+export async function addNewFont(newFont) {
+    newFont = newFont.trim();
 
     // All checks have passed. Add and enable the font.
     let gmAddedFonts = settingGet('gmAddedFonts');
@@ -52,10 +119,11 @@ export async function processNewFont(newFont) {
 
     await loadConfigFontFamilies();
 
-    await WebFontLoader.loadGoogleFonts([newFont]);
-
     await addFontMessaging('added', 'info', { locPlaceholder: { newFont: newFont } });
 }
+
+// Receives added fonts and validates that they exist in the Google Fonts API. If they don't the result will be a CORS error.
+export async function processNewFont(newFont) {}
 
 // Prevents duplicate fonts from being added by checking submissions against existing font packs
 export async function checkForDuplicateFonts(newFont) {
@@ -73,7 +141,7 @@ export async function checkForDuplicateFonts(newFont) {
         dupePack = loc('mainSettings', 'fontManagerTab', 'gmAddedPackName', {
             title: constants.moduleTitle,
         });
-    } else if (constants.dungeondraftDefaultFonts.includes(newFont)) {
+    } else if (constants.dungeondraftFonts.includes(newFont)) {
         dupePack = loc('mainSettings', 'fontManagerTab', 'dungeondraftPackName');
     }
 

@@ -5,6 +5,7 @@ import {
     settingGet,
     whenAvailable,
     loadConfigFontFamilies,
+    redrawDrawings,
 } from './utils.js';
 import registerSettings from './settings.js';
 import FvttFontsApi from './fvtt-fonts-api.js';
@@ -18,15 +19,21 @@ Hooks.once('init', async () => {
     registerSettings();
     setupHandlebarsHelpers();
     FvttFontsApi.registerApi();
-    whenAvailable('WebFont', function () {
-        WebFontLoader.loadGoogleFonts(settingGet('gmAddedFontsEnabled'));
-    });
+    if (settingGet('gmAddedFontsEnabled')[0]) {
+        whenAvailable('WebFont', function () {
+            WebFontLoader.loadGoogleFonts(settingGet('gmAddedFontsEnabled'));
+        });
+    }
     await loadConfigFontFamilies();
 });
 
 // Register with devMode module for debugging purposes
 Hooks.once('devModeReady', ({ registerPackageDebugFlag }) => {
     registerPackageDebugFlag(`${constants.moduleName}`);
+});
+
+Hooks.once('canvasReady', () => {
+    redrawDrawings();
 });
 
 Hooks.on('renderFvttFontsMainSettingsForm', (app, html, options) => {

@@ -1,0 +1,30 @@
+{{#if dungeondraftFontsVisible}}
+  <h2 id="dungeondraftFontsHeader" class="pack-header font-pack--collapse::before" style="display: flex;flex-direction: row;">
+    <div style="flex: 0 0 50px;">
+      <img id=dungeondraft-fonts-icon" style="border-width:0;" src="/modules/fvtt-fonts/icons/dungeondraftIcon.png" height="20px" title="{{localize (concat locPrefix "fontManagerTab.dungeondraftPackName")}}"/>
+    </div>
+    {{localize (concat locPrefix "fontManagerTab.dungeondraftPackName")}}
+  </h2>
+  <div class="form-group submenu">
+    <ul class="font-pack" style="list-style: none;">
+      <li style="display: flex;">
+        <div style="flex: 0 0 50px;">{{localize (concat locPrefix "fontManagerTab.sourceColumnName")}}</div>
+        <div style="flex: 0 0 150px;">{{localize (concat locPrefix "fontManagerTab.fontFamilyColumnName")}}</div>
+        <div style="flex: 0 0 450px;">{{localize (concat locPrefix "fontManagerTab.previewColumnName")}}</div>
+        <div style="flex: 0 0 70px;">{{localize (concat locPrefix "fontManagerTab.enabledColumnName")}}</div>
+      </li>
+      <hr>
+      {{#each installedFonts.dungeondraftFonts as |font|}}
+        <li style="display: flex;">
+          <div style="flex: 0 0 50px;"><img id={{font.sourceIconId}} style="border-width:0;"
+                                            src={{font.sourceIconPath}} height="20px"
+                                            title="{{font.sourceIconHoverText}}"/></div>
+          <div style="flex: 0 0 150px; text-transform: capitalize;">{{font.name}}</div>
+          <div style="flex: 0 0 450px; font: 120% {{font.name}};">{{@root.previewAlphabet}}</div>
+          <input type="checkbox" style="flex: 0 0 70px;" name="fontEnableDisable" id="dungeondraftFontsEnabled--{{font.name}}"{{checked font.enabled}} />
+        </li>
+        <hr style="width:60%">
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}

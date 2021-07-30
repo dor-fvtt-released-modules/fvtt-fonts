@@ -3,14 +3,22 @@ import { loc, shuffleArray } from '../utils.js';
 
 export function getFontPreviewerTabData() {
     return {
-        enabledFonts: getEnabledFonts(),
+        configFontFamilies: CONFIG.fontFamilies,
         completeAlphabet: loc('mainSettings', 'fontPreviewerTab', 'completeAlphabet'),
         panagramBlob: panagramCombiner(),
+        //fontPreviewerPreviewing: false,
     };
 }
 
-export function getEnabledFonts() {
-    return CONFIG.fontFamilies;
+export function fontPreviewerPreviewListener(html) {
+    html.find('#font-previewer-previewed-font').on('change', async (event) => {
+        const previewedFont = event.currentTarget.value; //font select's value
+        html.find('#font-previewer-preview-text').each(function () {
+            this.style.font = `120% ${previewedFont}`;
+            this.classList.replace('font-preview-text--hidden', 'font-preview-text');
+        }, previewedFont);
+        this.setPosition({ height: 'auto' });
+    });
 }
 
 export function panagramCombiner() {

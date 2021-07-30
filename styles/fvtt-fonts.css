@@ -8,11 +8,13 @@
 }
 
 .fvtt-fonts nav.sheet-tabs {
+    border-top: 1px solid #000;
     border-bottom: 1px solid #000;
-    line-height: 25px;
-}
+    line-height: 30px;
+    font-family: Aladin, Signika, sans-serif;
+    font-size: large
+}S
 
-/* IMPORTED */
 #fonts-main-settings form .form-group > label {
     flex: 3;
 }
@@ -37,4 +39,17 @@
 
 #fonts-main-settings .tab[data-tab='fontManager'] .form-group:not(:last-child) {
     margin-bottom: 0.5em;
+}
+
+.font-preview-text--hidden {
+    display: none !important;
+}
+
+.add-font-tab-button {
+    margin-bottom: 0.5em;
+}
+
+.add-font-tab-button--hidden {
+    margin-bottom: 0.5em;
+    display: none !important
 }

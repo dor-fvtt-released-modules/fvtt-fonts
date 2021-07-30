@@ -1,3 +1,5 @@
+import { redrawDrawings, log } from './utils.js';
+
 export default class WebFontLoader {
     static loadWebFontApi() {
         const script = $('<script defer>');
@@ -11,9 +13,11 @@ export default class WebFontLoader {
                 families: fontArray,
             },
             timeout: 2000, // Set the timeout to two seconds
+            active: function () {
+                redrawDrawings();
+                log('All Google Fonts loaded.');
+            },
         };
-
-        // TODO - Explore using WebFont event callbacks
 
         WebFont.load(webFontConfig);
     }
@@ -38,19 +42,4 @@ export default class WebFontLoader {
             return await { valid: false, responseCode: null, error: err }; // An error - usually CORS - means the font doesn't exist
         }
     }
-
-    /*
-    fontEl.on('load', () => {
-      // Try to redraw drawings. If the font isn't loaded. Then wait 5 seconds and try again.
-      this.drawDrawings();
-      setTimeout(() => this.drawDrawings(), 5000);
-      if (options.settings) {
-        ui.notifications.info(game.i18n.localize('ForienCustomFonts.Notifications.FontAdded'), {permanent: true});
-      }
-    });
-  }
-
-  static drawDrawings() {
-    canvas?.drawings?.placeables.filter(d => d.data.type === 't').forEach(d => d.draw());
-  } */
 }
