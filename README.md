@@ -10,13 +10,17 @@
 -   Account for things modifying TinyMCE like TinyMCE toolbar config
 -   Try for compat with popular journal modules (Mon's Enhanced Journal)
 -   Add game system fonts for popular systems (https://www.reddit.com/r/Pathfinder2e/comments/mo2onb/text_fonts_used_in_the_books/)
--   Handle adding duplicates (within and across categories)
--   Move fonts on ManageFonts into sections
--   Finish wiring up Add Fonts
--   Build install/uninstall workflow
+-   Finish local font implementation
 -   Finish API
 -   Set all font %s and use them
 -   Test with popular UI mods
+-   Link from manager to previewer
+-   Hook up restore defaults
+-   CSS polish. Move inline styles to stylesheets
+-   Clean up all the warnings/TODOs
+-   Clean up locfile & do translations using foundry magic l10n
+-   Write README (with bling) and CHANGELOG
+-   Comment code as much as possible
 
 ---
 
@@ -41,6 +45,10 @@ Description
 
 ## Features
 
+## Module Compatibility
+
+-TinyMCE Global?
+
 ## Future plans (current ideas)
 
 Plans for future include:
@@ -61,5 +69,6 @@ If you are interested in translating 📜 Fonts, make a new Pull Request with yo
 
 -   Thanks to
 -   Tidy Module Settings, Polyglot, Dice So Nice, Forien Custom Fonts
+-   The League
 
 ## License

@@ -10,6 +10,7 @@ import {
 import registerSettings from './settings.js';
 import FvttFontsApi from './fvtt-fonts-api.js';
 import { controlFontPackCollapseGroups } from './main_settings_form/font-manager-tab-logic.js';
+import { installLocalFonts, loadLocalFonts } from './local-fonts.js';
 import WebFontLoader from './web-font-loader.js';
 
 // Register settings enumerated in settings.js
@@ -24,6 +25,11 @@ Hooks.once('init', async () => {
             WebFontLoader.loadGoogleFonts(settingGet('gmAddedFontsEnabled'));
         });
     }
+});
+
+Hooks.once('ready', async () => {
+    await installLocalFonts();
+    await loadLocalFonts();
     await loadConfigFontFamilies();
 });
 

@@ -41,6 +41,7 @@ export async function checkFontListener(html) {
             // Change cancel button property
             cancelAddButton.classList.replace('add-font-tab-button--hidden', 'add-font-tab-button');
             // Reveal preview
+            previewText.children['add-font-preview-title'].innerText = newFont;
             previewLabel.classList.replace('font-preview-text--hidden', 'font-preview-text');
             previewText.classList.replace('font-preview-text--hidden', 'font-preview-text');
             previewText.style.font = `120% ${newFont}`;

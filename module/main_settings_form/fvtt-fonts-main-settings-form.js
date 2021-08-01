@@ -188,20 +188,20 @@ class FvttFontsMainSettingsForm extends FormApplication {
     }
 }
 
+// Make sure imports are part of the FvttFontsMainSettingsForm class.
 Object.assign(FvttFontsMainSettingsForm.prototype, {
+    // Font Manager tab imports
     getFontManagerTabData,
     assembleInstalledFonts,
     removeFontListener,
     expandCollapseGroup,
     resetFontManagerTabSize,
     renderWithoutCollapse,
-});
-Object.assign(FvttFontsMainSettingsForm.prototype, {
+    // Font Previewer tab imports
     getFontPreviewerTabData,
     fontPreviewerPreviewListener,
     panagramCombiner,
-});
-Object.assign(FvttFontsMainSettingsForm.prototype, {
+    // Add font tab imports
     checkFontListener,
     inputListener,
     addFontListener,
@@ -210,8 +210,10 @@ Object.assign(FvttFontsMainSettingsForm.prototype, {
     addNewFont,
     checkForDuplicateFonts,
     addFontMessaging,
+    // Font packs tab imports
+    getFontPacksTabData,
+    // Preferences tab imports
+    getPreferencesTabData,
 });
-Object.assign(FvttFontsMainSettingsForm.prototype, { getFontPacksTabData });
-Object.assign(FvttFontsMainSettingsForm.prototype, { getPreferencesTabData });
 
 export default FvttFontsMainSettingsForm;

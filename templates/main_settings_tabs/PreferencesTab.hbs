@@ -2,7 +2,19 @@
   {{! Category sort setting}}
   <div class="form-group">
     <label>{{localize (concat locPrefix "preferencesTab.categorySortSetting.label")}}</label>
-    <input type="checkbox" data-categorySort name="categorySort" data-dtype="Boolean" {{checked categorySort}} />
+    <div class="form-fields">
+      <input type="checkbox" data-categorySort name="categorySort" data-dtype="Boolean" {{checked categorySort}} />
+    </div>
     <p class="notes">{{localize (concat locPrefix "preferencesTab.categorySortSetting.hint")}}</p>
+  </div>
+  <hr style="width:60%">
+  {{! Local font folder setting}}
+  <div class="form-group">
+    <label>{{localize (concat locPrefix "preferencesTab.localFontFolderSetting.label")}}</label>
+    <div class="form-fields">
+      {{filePicker target="localFontFolder" type="folder"}}
+      <input class="image" type="text" name="localFontFolder" placeholder="{{localFontFolder}}" value="{{data.localFontFolder}}" disabled/>
+    </div>
+    <p class="notes">{{localize (concat locPrefix "preferencesTab.localFontFolderSetting.hint")}}</p>
   </div>
 </div>

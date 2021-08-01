@@ -41,14 +41,12 @@
         "dungeondraftPackName": "Dungeondraft Font Pack",
         "dungeondraftIconHover": "Dungeondraft Font",
         "fontsApiPackName": "'{module}' Font Pack",
-        "fontsApiIconHover": "'{module}' Font",
-        "unknownPackName": "Fonts from Unknown Sources",
-        "unknownIconHover": "Honestly, no idea how this got here."
+        "fontsApiIconHover": "'{module}' Font"
       },
       "addFontTab": {
         "title": "Add a Font",
         "hint": "Add a font from the Google Fonts API to Foundry. Browse available font families on ",
-        "googleFontsLink": "the Google Fonts site.",
+        "googleFontsLink": "the Google Fonts library.",
         "inputLabel": "Enter the exact name of a single font, then press 'Check Font'.",
         "previewLabel": "This font is available. If you'd still like to add it to Foundry, press 'Add Font'",
         "checkButtonTitle": "Check Font",
@@ -74,6 +72,11 @@
         "categorySortSetting": {
           "label": "Sort Fonts in Dropdowns by Category",
           "hint": "By default, all fonts are sorted alphabetically in UI dropdowns. Enable this setting to sort by category instead, with default Foundry fonts first."
+        },
+        "localFontFolderSetting": {
+          "label": "Local Font Folder",
+          "hint": "Chooose one or something PLACEHOLDER TEXT.",
+          "inputHint": "Choose Folder"
         }
       },
       "panagrams": {

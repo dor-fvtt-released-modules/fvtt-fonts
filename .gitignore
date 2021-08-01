@@ -3,3 +3,4 @@ fvtt-fonts.lock
 docs/
 node_modules/
 foundry.js
+fonts/local/*
