@@ -1,27 +1,3 @@
-# Ideas:
-
--   User font directory?
-
-## To Do:
-
--   Account for Polyglot
--   Account for Forien's Custom Fonts
--   Account for FVTT Better Text Drawings
--   Account for things modifying TinyMCE like TinyMCE toolbar config
--   Try for compat with popular journal modules (Mon's Enhanced Journal)
--   Add game system fonts for popular systems (https://www.reddit.com/r/Pathfinder2e/comments/mo2onb/text_fonts_used_in_the_books/)
--   Finish local font implementation
--   Finish API
--   Set all font %s and use them
--   Test with popular UI mods
--   Link from manager to previewer
--   Hook up restore defaults
--   CSS polish. Move inline styles to stylesheets
--   Clean up all the warnings/TODOs
--   Clean up locfile & do translations using foundry magic l10n
--   Write README (with bling) and CHANGELOG
--   Comment code as much as possible
-
 ---
 
 ![📜 Fonts](./images/fontslogo.png)

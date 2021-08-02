@@ -28,7 +28,7 @@ export async function getLocalFontObj() {
             extension: fontExtension,
             format: fontFormat,
             filename: fontFile,
-            path: String.prototype.concat('/', fontPath),
+            path: fontPath.startsWith('http') ? fontPath : String.prototype.concat('/', fontPath),
         };
     });
     return fonts;
