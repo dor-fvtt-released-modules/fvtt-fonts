@@ -34,8 +34,8 @@
         "fvttFontsDefaultIconHover": "{title} - Default Font",
         "gmAddedPackName": "Google Fonts - Added by GM",
         "gmAddedIconHover": "Google Font - Added by GM",
-        "gmLocalPackName": "Local Fonts - Added by GM",
-        "gmLocalIconHover": "Local Font - Added by GM",
+        "localPackName": "Local Fonts",
+        "localIconHover": "Local Font",
         "gameSystemPackName": "{system} Font Pack",
         "gameSystemIconHover": "{system} Font",
         "dungeondraftPackName": "Dungeondraft Font Pack",
@@ -99,6 +99,10 @@
         "invalid": "'{newFont}' was not found on Google Fonts. Please verify that the font is available.",
         "added": "'{newFont}' added to Foundry and enabled.",
         "duplicate": "'{newFont}' is already available in the {existingFontPack}. Please enable it there instead."
+      },
+      "localFonts": {
+        "localFontsFound": "{count} fonts were found and added to the Font Manager.",
+        "noLocalFontsFound": "No local fonts were found in that directory."
       }
     }
   }

@@ -70,5 +70,6 @@ If you are interested in translating 📜 Fonts, make a new Pull Request with yo
 -   Thanks to
 -   Tidy Module Settings, Polyglot, Dice So Nice, Forien Custom Fonts
 -   The League
+-   Typhon for tooling
 
 ## License

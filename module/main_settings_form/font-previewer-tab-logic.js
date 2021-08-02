@@ -6,7 +6,6 @@ export function getFontPreviewerTabData() {
         configFontFamilies: CONFIG.fontFamilies,
         completeAlphabet: loc('mainSettings', 'fontPreviewerTab', 'completeAlphabet'),
         panagramBlob: panagramCombiner(),
-        //fontPreviewerPreviewing: false,
     };
 }
 

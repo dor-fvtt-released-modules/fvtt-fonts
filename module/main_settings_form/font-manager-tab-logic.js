@@ -110,6 +110,24 @@ export function assembleInstalledFonts() {
         mergeObject(assembledFonts, dungeondraftFontsCollection);
     }
 
+    // Add local fonts, if there are any.
+    let localFonts = settingGet('localFonts');
+    localFonts = Object.keys(localFonts);
+    let localFontsEnabled = settingGet('localFontsEnabled');
+    if (localFonts && localFonts.length > 0) {
+        let localFontsCollection = {};
+        localFontsCollection['localFonts'] = {};
+        for (const key of localFonts) {
+            localFontsCollection['localFonts'][key] = {
+                name: key,
+                enabled: localFontsEnabled.includes(key),
+                sourceIconId: 'local-fonts-icon',
+                sourceIconPath: `/modules/${constants.moduleName}/icons/localIcon.png`,
+                sourceIconHoverText: loc('mainSettings', 'fontManagerTab', 'localFontIconHover'),
+            };
+        }
+        mergeObject(assembledFonts, localFontsCollection);
+    }
     return assembledFonts;
 }
 

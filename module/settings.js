@@ -43,7 +43,7 @@ export default function registerSettings() {
     game.settings.register(constants.moduleName, 'fvttFontsDefaultFontsVisible', {
         scope: 'world',
         config: false,
-        default: true,
+        default: false,
         type: Boolean,
     });
     // Determines which of the module default fonts, if visible, are enabled

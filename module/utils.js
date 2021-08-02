@@ -113,7 +113,7 @@ export function preloadTemplates() {
         'templates/main_settings_tabs/PreferencesTab.hbs',
         'templates/main_settings_tabs/font_manager_categories/FoundryDefaultFontsPack.hbs',
         'templates/main_settings_tabs/font_manager_categories/GmAddedFontsPack.hbs',
-        'templates/main_settings_tabs/font_manager_categories/GmLocalFontsPack.hbs',
+        'templates/main_settings_tabs/font_manager_categories/LocalFontsPack.hbs',
         'templates/main_settings_tabs/font_manager_categories/FvttFontsDefaultFontsPack.hbs',
         'templates/main_settings_tabs/font_manager_categories/CurrentGameSystemFontsPack.hbs',
         'templates/main_settings_tabs/font_manager_categories/DungeondraftDefaultFontsPack.hbs',
@@ -157,6 +157,10 @@ export async function loadConfigFontFamilies() {
         constants.foundryDefaultFonts,
         settingGet('gmAddedFontsEnabled'),
     );
+
+    if (Object.keys(settingGet('localFonts')).length > 0) {
+        enabledFontArray = enabledFontArray.concat(settingGet('localFontsEnabled'));
+    }
 
     if (settingGet('fvttFontsDefaultFontsVisible')) {
         enabledFontArray = enabledFontArray.concat(settingGet('fvttFontsDefaultFontsEnabled'));

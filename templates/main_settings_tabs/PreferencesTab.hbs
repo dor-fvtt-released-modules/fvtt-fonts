@@ -13,7 +13,7 @@
     <label>{{localize (concat locPrefix "preferencesTab.localFontFolderSetting.label")}}</label>
     <div class="form-fields">
       {{filePicker target="localFontFolder" type="folder"}}
-      <input class="image" type="text" name="localFontFolder" placeholder="{{localFontFolder}}" value="{{data.localFontFolder}}" disabled/>
+      <input class="image" type="text" name="localFontFolder" id="localFontFolderInput" placeholder="{{localFontFolder}}" value="{{data.localFontFolder}}" disabled/>
     </div>
     <p class="notes">{{localize (concat locPrefix "preferencesTab.localFontFolderSetting.hint")}}</p>
   </div>

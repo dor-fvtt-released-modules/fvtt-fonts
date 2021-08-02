@@ -33,7 +33,12 @@ import {
     settingDetails,
     loadConfigFontFamilies,
 } from '../utils.js';
-import { getPreferencesTabData } from './preferences-tab-logic.js';
+import {
+    getPreferencesTabData,
+    localFontFolderInputListener,
+    messageLocalFontFolderChange,
+} from './preferences-tab-logic.js';
+import { installLocalFonts, loadLocalFonts } from '../local-fonts.js';
 
 class FvttFontsMainSettingsForm extends FormApplication {
     constructor(object, options = {}) {
@@ -116,6 +121,8 @@ class FvttFontsMainSettingsForm extends FormApplication {
         addFontListener.call(this, html);
         cancelAddFontListener.call(this, html);
 
+        localFontFolderInputListener.call(this, html);
+
         // Listen for 'Close' button
         html.find("[name='close-button']").on('click', async () => {
             this.close();
@@ -139,6 +146,7 @@ class FvttFontsMainSettingsForm extends FormApplication {
                 this.render();
             }
 
+            // If a font was removed, remove it.
             if (key === 'removeFont') {
                 let gmAddedFonts = settingGet('gmAddedFonts');
                 let gmAddedFontsEnabled = settingGet('gmAddedFontsEnabled');
@@ -184,6 +192,14 @@ class FvttFontsMainSettingsForm extends FormApplication {
                     }
                 }
             }
+
+            if (key === 'localFontFolder') {
+                await settingSet('localFontFolder', value);
+                await installLocalFonts();
+                await loadLocalFonts();
+                this.render();
+                messageLocalFontFolderChange();
+            }
         }
     }
 }
@@ -214,6 +230,8 @@ Object.assign(FvttFontsMainSettingsForm.prototype, {
     getFontPacksTabData,
     // Preferences tab imports
     getPreferencesTabData,
+    localFontFolderInputListener,
+    messageLocalFontFolderChange,
 });
 
 export default FvttFontsMainSettingsForm;
